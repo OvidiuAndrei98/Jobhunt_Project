@@ -1,8 +1,16 @@
 import React from 'react'
 import Heart from '../../assets/Heart.png'
 import Marker from '../../assets/Marker.png'
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+
 
 const JobCard = () => {
+    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
     return (
         <div className="jobCard">
             <div className="jobCard__header">
@@ -14,7 +22,8 @@ const JobCard = () => {
                     <p className="postDate">Posted 2 hours ago</p>
                 </div>
                 <div className="favoriteIcon">
-                    <img src={Heart} alt="heart" />
+                <Checkbox style={{color:"#00A392"}} size="small" {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
+                    {/* <img src={Heart} alt="heart" /> */}
                 </div>
             </div>
             <div className="jobCard__body">

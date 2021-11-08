@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from '../navigation/Navbar'
 import SearchIcon from '../../assets/SearchIcon.png'
 import JobCard from './JobCard'
+import Slider from '../../assets/Slider.png'
 
 const FindWork = () => {
     return (
@@ -10,7 +11,10 @@ const FindWork = () => {
             <div className="container-fw">
                 <div className="left-collumn">
                     <h3 style={{marginBottom:"15px"}}>Find Work</h3>
-                    <p style={{marginBottom:"15px"}}>Filter</p>
+                    <div className="filter">
+                        <img src={Slider} alt="Slider" />
+                        <p style={{marginBottom:"15px"}}>Filter</p>
+                    </div>
                     <div className="filter-container">
                     </div>
                 </div>
