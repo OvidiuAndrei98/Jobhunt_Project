@@ -22,7 +22,7 @@ const JobCard = () => {
                     <p className="postDate">Posted 2 hours ago</p>
                 </div>
                 <div className="favoriteIcon">
-                <Checkbox style={{color:"#00A392"}} size="small" {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
+                <Checkbox style={{color:"#F0540C"}} size="small" {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
                     {/* <img src={Heart} alt="heart" /> */}
                 </div>
             </div>

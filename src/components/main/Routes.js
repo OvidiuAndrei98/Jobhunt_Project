@@ -5,6 +5,7 @@ import Register from '../auth/Register';
 import HomePage from './HomePage';
 import Footer from '../navigation/Footer';
 import FindWork from '../jobs/FindWork';
+import ContactInfo from '../profile/ContactInfo';
 
 const Routes = () => {
     return (
@@ -17,6 +18,7 @@ const Routes = () => {
                     <PrivateRoute path="/company-applicants" component={Users} />
                     <PrivateRoute path="/edit-job" component={EditJob} />
                     <PrivateRoute path="/add-job" component={AddJob} /> */}
+                    <Route path="/user/contact" component={ContactInfo} />
                     <Route path="/login" component={Login} />
                     <Route path="/register" component={Register}/>
                     <Route path="/work" component={FindWork}/>

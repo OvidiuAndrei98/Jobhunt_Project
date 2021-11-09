@@ -147,7 +147,8 @@ const FindWork = () => {
                         </div>
                     </div>
                     <JobCard />
-                    <br/>
+                    <JobCard />
+                    <JobCard />
                     <JobCard />
                 </div>
             </div>
