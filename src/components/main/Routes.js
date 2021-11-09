@@ -22,7 +22,7 @@ const Routes = () => {
                     <Route path="/work" component={FindWork}/>
                 </Switch>
             </Router>
-        <Footer/>
+        {/* <Footer/> */}
         </>
     );
 };

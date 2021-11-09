@@ -41,8 +41,8 @@ body {
   position:absolute;
   bottom:10%;
   left:35%;
-  max-width: 15%;
-  min-height: 30%;
+  width: 15%;
+  height: 30%;
   background:linear-gradient(to top right, #0CF0D9, transparent) ;
   border-radius:50%;
   animation-name: floating;
@@ -56,8 +56,8 @@ body {
   position:absolute;
   top:10%;
   left:53%;
-  max-width: 15%;
-  min-height: 30%;
+  width: 15%;
+  height: 30%;
   background-image:linear-gradient(to left bottom, #F0540C, transparent);
   border-radius:50%;
   animation-name: floating;
@@ -70,8 +70,8 @@ body {
   position:absolute;
   top:43%;
   right: 30%;
-  max-width: 1.5%;
-  min-height: 3%;
+  width: 1.5%;
+  height: 3%;
   background: #0CF0D9;
   border-radius:50%;
   animation-name: floating;
@@ -84,8 +84,8 @@ body {
   position:absolute;
   top:60%;
   left:30%;
-  max-width: 1.5%;
-  min-height: 3%;
+  width: 1.5%;
+  height: 3%;
   background: #A33502;
   border-radius:50%;
   animation-name: floating;
@@ -121,6 +121,65 @@ background-color: #00A392;
 .nav > ul > li {
   padding-left: 25px;
   color: #FFF;
+}
+
+.footer-container {
+  bottom: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 100%;
+  min-height: 23vh;
+  background-color: #00A392;
+}
+
+.footer-content {
+  position: relative;
+  width: 60%;
+  display: flex;
+  margin: 0 auto;
+  padding: 20px 5px;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.459)
+
+}
+
+.footer-content-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-content-box h3 {
+  color: #FFF;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.footer-content-box ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.footer-content-box li {
+  color: rgba(0, 0, 0, 0.596);
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.footer-social-media{
+  padding: 10px 5px;
+  width: 60%;
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.459);
+}
+
+.footer-social-media-icons{
+  display: flex;
 }
 
 .logo {
@@ -273,15 +332,22 @@ cursor: pointer;
 
 
 .filter-container {
-  /* border: 1px solid black; */
+  padding: 20px;
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center; */
+  /* justify-content: center; */
   width: 100%;
-  height: 300px;
   background-color: white;
+}
+
+.filter-item {
+  margin-bottom: 15px;
+}
+
+.filter-item h3 {
+  font-weight: 400;
 }
 
 .right-collumn {
@@ -342,8 +408,12 @@ height: 110%;
   width: 100%;
   height: 100%;
   background-color: white;
-  margin-top: 5.2%;
+  margin-bottom: 5.2%;
   box-shadow: 2px 2px 15px  #0000006c;
+}
+
+.jobCard:nth-child(2) {
+    margin-top: 5.2%;
 }
 
 .jobCard__header {
