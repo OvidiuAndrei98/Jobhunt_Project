@@ -6,6 +6,7 @@ import HomePage from './HomePage';
 import Footer from '../navigation/Footer';
 import FindWork from '../jobs/FindWork';
 import ContactInfo from '../profile/ContactInfo';
+import MyProfile from '../profile/MyProfile';
 
 const Routes = () => {
     return (
@@ -18,6 +19,7 @@ const Routes = () => {
                     <PrivateRoute path="/company-applicants" component={Users} />
                     <PrivateRoute path="/edit-job" component={EditJob} />
                     <PrivateRoute path="/add-job" component={AddJob} /> */}
+                    <Route path="/user/my-profile" component={MyProfile} />
                     <Route path="/user/contact" component={ContactInfo} />
                     <Route path="/login" component={Login} />
                     <Route path="/register" component={Register}/>

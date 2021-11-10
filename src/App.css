@@ -510,14 +510,28 @@ height: 110%;
 }
 
 .skills {
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #F0540C;
+  background-color: #00A392;
   border-radius: 15px;
-  width: 20%;
+  width: 100px;
   min-height: 30px;
-  margin-right: 35px;
+  margin-right: 20px;
+}
+
+.skill {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00A392;
+  border-radius: 15px;
+  width: 100px;
+  min-height: 30px;
+  margin-right: 20px;
+  margin-bottom: 15px;
 }
 
 .location__country {
@@ -703,6 +717,121 @@ height: 110%;
   margin-bottom: 20px;
 }
 
+.profile-upper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.profile-upper img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.profile-upper p {
+  font-size: 0.9rem;
+  font-weight: 550;
+}
+
+.profile-lower {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  border-radius: 10px 10px 0 0 ;
+  /* align-items: center; */
+  /* margin-top: 10px; */
+  /* margin-bottom: 10px; */
+}
+
+.lower-left {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  border-right: 1px rgba(0, 0, 0, 0.493) solid;
+  padding: 20px;
+}
+
+.lower-right {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  padding: 20px 0;
+}
+
+.section {
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.section-upper {
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.header-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header-group img {
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.header-flex-row {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.description {
+  padding: 0 20px;
+  display: flex;
+  width: 80%;
+  margin-top: 5px;
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.459); */
+}
+
+.description img {
+  transform: translateY(-35px);
+  object-fit: scale-down;
+  cursor: pointer;
+}
+
+.break-line {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.459);
+}
+
+.header-group-middle {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.header-group-middle img {
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.middle-skills {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* width: 80%; */
+  padding: 0 20px;
+  margin-left: 20px;
+}
 
 
 

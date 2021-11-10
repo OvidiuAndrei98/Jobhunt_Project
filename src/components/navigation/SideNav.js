@@ -43,9 +43,9 @@ const SideNav = () => {
                         <span className="title">Contact</span>
                     </NavLink>
                 </li>
-                <li className={splitLocation[2] === "profile" ? "list active" : "list"}>
-                    <NavLink to="company-applicants">
-                    <   img className="icon" src={splitLocation[2] === "profile" ? UserActive : User}/>
+                <li className={splitLocation[2] === "my-profile" ? "list active" : "list"}>
+                    <NavLink to="/user/my-profile">
+                    <   img className="icon" src={splitLocation[2] === "my-profile" ? UserActive : User}/>
                         <span className="title">Profile</span>
                     </NavLink>
                 </li>
