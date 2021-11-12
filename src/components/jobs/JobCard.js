@@ -8,36 +8,37 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 
-const JobCard = () => {
+const JobCard = ({job}) => {
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+    console.log(job);
 
     return (
         <div className="jobCard">
             <div className="jobCard__header">
-                <h2 className="jobCard__header__title">Title</h2>
-                <div className="jobCard__header__info">
-                    <p className="payType">Fixed-price</p>
-                    <p className="experienceLevel">Intermediate</p>
-                    <p className="budget">Budget: $100</p>
-                    <p className="postDate">Posted 2 hours ago</p>
+                <div style={{display:"flex", justifyContent:"space-between"}}>
+                    <h2 className="jobCard__header__title">{job.title}</h2>
+                    <div className="favoriteIcon">
+                    <Checkbox style={{color:"#F0540C"}} size="small" {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
+                        {/* <img src={Heart} alt="heart" /> */}
+                    </div>
                 </div>
-                <div className="favoriteIcon">
-                <Checkbox style={{color:"#F0540C"}} size="small" {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
-                    {/* <img src={Heart} alt="heart" /> */}
+                <div className="jobCard__header__info">
+                    <p className="payType">{job.paymentType}</p>
+                    <p className="experienceLevel">{job.experienceLevel}</p>
+                    <p className="budget">Budget: ${job.budget}</p>
+                    <p className="postDate">Posted 2 hours ago</p>
                 </div>
             </div>
             <div className="jobCard__body">
-                <p className="jobCard__body__description">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p className="jobCard__body__description">{job.description}</p>
             </div>
             <div className="jobCard__footer">
                 <div className="jobCard__footer__skills">
-                    <div className="skills">Skill</div>
-                    <div className="skills">Skill</div>
-                    <div className="skills">Skill</div>
+                    {job.skills.map(skill => <div className="skills">{skill}</div>)}
                 </div>
                 <div className="location">
                     <img src={Marker}/>
-                    <p className="location__country">Romania</p>
+                    <p className="location__country">{job.location}</p>
                 </div>
             </div>
             

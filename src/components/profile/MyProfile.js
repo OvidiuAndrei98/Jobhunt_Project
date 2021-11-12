@@ -88,7 +88,12 @@ const MyProfile = () => {
                             </div>
                             <div className="break-line"></div>
                             <div className="section-lower">
-
+                                <div className='header-group-lower'>
+                                    <h3>Certifications</h3>
+                                    <img src={Edit} />
+                                </div>
+                                <h4>HTML</h4>
+                                <p>Coursera 2021</p>
                             </div>
                         </div>
                     </div>

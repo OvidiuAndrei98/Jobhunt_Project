@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Navbar from '../navigation/Navbar'
 import SearchIcon from '../../assets/SearchIcon.png'
 import JobCard from './JobCard'
@@ -10,9 +10,43 @@ import { makeStyles } from '@mui/styles';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Footer from '../navigation/Footer'
+import JobsService from '../../service/JobsService'
 
 
 const FindWork = () => {
+    const [jobs, setJobs] = useState([]);
+    const [search, setSearch] = useState('');
+    const [filterInputs, setFilterInputs] = useState([])
+
+    const handleCategory = (event) => {
+        setFilterInputs({...filterInputs, "category": event.target.value})
+      }
+
+    const handlePaymentType = (event) => {
+    setFilterInputs({...filterInputs, "pType": event.target.value})
+    }
+
+    const handleExperienceLevel = (event) => {
+        setFilterInputs({...filterInputs, "experience": event.target.value})
+        }
+
+    const handleLocation = (event) => {
+    setFilterInputs({...filterInputs, "location": event.target.value})
+    }
+
+    const filter = () => {
+        JobsService.filterJobs(filterInputs)
+        .then(response => {
+            setJobs(response.data)
+        });
+        console.log(filterInputs);
+    }
+
+    useEffect(() => {
+        JobsService.getAllJobs().then(res => {  
+            setJobs(res.data)});
+    },[])
+
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -33,7 +67,7 @@ const FindWork = () => {
       }));
 
       const classes = useStyles();
-      const classes2 = buttonStyles();
+    //   const classes2 = buttonStyles();
 
     return (
         <>
@@ -53,19 +87,18 @@ const FindWork = () => {
                                      className={classes.root}
                                      size="small"
                                      variant="outlined"
-                                     labelId="Category"
-                                     id="Category"
-                                     // value={age}
-                                     // onChange={handleChange}
+                                     labelId="category"
+                                     id="category"
+                                     onChange={handleCategory}
                                      label="Category"
                                      select
                                 >
-                                <MenuItem value="">
+                                <MenuItem value="undefined">
                                 <em>None</em>
                               </MenuItem>
-                              <MenuItem value={10}>Ten</MenuItem>
-                              <MenuItem value={20}>Twenty</MenuItem>
-                              <MenuItem value={30}>Thirty</MenuItem>
+                              <MenuItem value={"web-development"}>Web Development</MenuItem>
+                              <MenuItem value={"marketing"}>Marketing</MenuItem>
+                              <MenuItem value={"finance"}>Finance</MenuItem>
                             </TextField>
                                 </FormControl>
                             </div>
@@ -77,17 +110,15 @@ const FindWork = () => {
                                         variant="outlined"
                                         labelId="pType"
                                         id="pType"
-                                        // value={age}
-                                        // onChange={handleChange}
+                                        onChange={handlePaymentType}
                                         label="Payement Type"
                                         select
                                     >
-                                        <MenuItem value="">
+                                        <MenuItem value="undefined">
                                         <em>None</em>
                                         </MenuItem>
-                                        <MenuItem value={10}>Ten</MenuItem>
-                                        <MenuItem value={20}>Twenty</MenuItem>
-                                        <MenuItem value={30}>Thirty</MenuItem>
+                                        <MenuItem value={"Hourly"}>Hourly</MenuItem>
+                                        <MenuItem value={"Fixed-Price"}>Fixed Price</MenuItem>
                                     </TextField>
                                 </FormControl>
                             </div>
@@ -97,19 +128,18 @@ const FindWork = () => {
                                         className={classes.root}
                                         size="small"
                                         variant="outlined"
-                                        labelId="Experience"
-                                        id="Experience"
-                                        // value={age}
-                                        // onChange={handleChange}
+                                        labelId="experience"
+                                        id="experience"
+                                        onChange={handleExperienceLevel}
                                         label="Experience Level"
                                         select
                                     >
-                                        <MenuItem value="">
+                                        <MenuItem value="undefined">
                                         <em>None</em>
                                         </MenuItem>
-                                        <MenuItem value={10}>Ten</MenuItem>
-                                        <MenuItem value={20}>Twenty</MenuItem>
-                                        <MenuItem value={30}>Thirty</MenuItem>
+                                        <MenuItem value={"Beginner"}>Beginner</MenuItem>
+                                        <MenuItem value={"Intermediate"}>Intermediate</MenuItem>
+                                        <MenuItem value={"Experienced"}>Experienced</MenuItem>
                                     </TextField>
                                 </FormControl>
                             </div>
@@ -119,24 +149,23 @@ const FindWork = () => {
                                         className={classes.root}
                                         size="small"
                                         variant="outlined"
-                                        labelId="Location"
-                                        id="Location"
-                                        // value={age}
-                                        // onChange={handleChange}
+                                        labelId="location"
+                                        id="location"
+                                        onChange={handleLocation}
                                         label="Location"
                                         select
                                     >
-                                        <MenuItem value="">
+                                        <MenuItem value="undefined">
                                         <em>None</em>
                                         </MenuItem>
-                                        <MenuItem value={10}>Ten</MenuItem>
-                                        <MenuItem value={20}>Twenty</MenuItem>
-                                        <MenuItem value={30}>Thirty</MenuItem>
+                                        <MenuItem value={"Romania"}>Romania</MenuItem>
+                                        <MenuItem value={"Canada"}>Canada</MenuItem>
+                                        <MenuItem value={"USA"}>USA</MenuItem>
                                     </TextField>
                                 </FormControl>
                             </div>
                         </form>
-                        <Button style={{background:"#00A392"}} variant="contained" size="small">Filter</Button>
+                        <Button style={{background:"#00A392"}} variant="contained" size="small" onClick={filter}>Filter</Button>
                     </div>
                 </div>
                 <div className="right-collumn">
@@ -146,10 +175,7 @@ const FindWork = () => {
                             <div className="searchSquare"><img src={SearchIcon} style={{width:"60%"}}/></div>
                         </div>
                     </div>
-                    <JobCard />
-                    <JobCard />
-                    <JobCard />
-                    <JobCard />
+                    {jobs.map(job => <JobCard job={job} />)}
                 </div>
             </div>
             <Footer/>
