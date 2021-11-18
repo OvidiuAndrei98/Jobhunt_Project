@@ -7,9 +7,15 @@ import Edit from '../../assets/Edit.png'
 import Add from '../../assets/Add.png'
 import AppUserFreelancer from '../../service/AppUserFreelancer'
 import AuthService from '../../service/AuthService'
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import AddLanguageModal from './AddLanguageModal'
 
 const MyProfile = () => {
     const [user, setUser] = useState([])
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     useEffect(() => {
         AppUserFreelancer.getFreelancerById(AuthService.getCurrentUser().id).then(res => {
@@ -17,7 +23,18 @@ const MyProfile = () => {
         })
     }, [])
 
-    console.log(user);
+    
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: "40%",
+        bgcolor: 'background.paper',
+        outline: 'none',
+        p: 4,
+        borderRadius: "5px 5px 0 0",
+      };
 
     return (
         <div>
@@ -43,8 +60,18 @@ const MyProfile = () => {
                             <div className="section">
                                 <div className='header-group'> 
                                     <h3>Language</h3>
-                                    <img src={Add} />
+                                    <img src={Add} onClick={handleOpen}/>
                                     <img src={Edit} />
+                                    <Modal
+                                        open={open}
+                                        onClose={handleClose}
+                                        aria-labelledby="modal-modal-title"
+                                        aria-describedby="modal-modal-description"
+                                        >
+                                        <Box sx={style}>
+                                            <AddLanguageModal />
+                                        </Box>
+                                    </Modal>
                                 </div>
                                 <p>{user.language}</p>
                             </div>

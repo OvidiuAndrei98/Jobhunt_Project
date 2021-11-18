@@ -989,6 +989,12 @@ height: 110%;
   color: #00000060;
 }
 
+.modal-content-middle { 
+  border-bottom: 1px solid rgba(0, 0, 0, 0.39);
+}
+.modal-content-top {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.39);
+}
 
 
 
