@@ -12,6 +12,7 @@ import Modal from '@mui/material/Modal';
 import AddLanguageModal from './AddLanguageModal'
 import EditLanguages from './EditLanguages'
 import { fontWeight } from '@mui/system'
+import AddEducationModal from './AddEducationModal'
 
 const MyProfile = () => {
     const [user, setUser] = useState([])
@@ -22,9 +23,13 @@ const MyProfile = () => {
         setModalContent(<AddLanguageModal closeModal = {open => setOpen(open)}/>)
         setOpen(true)};
 
-        const handleOpenEditLanguages = (language) => {
-            setModalContent(<EditLanguages language={language} closeModal = {open => setOpen(open)}/>)
-            setOpen(true)};
+    const handleOpenAddEducation = () => {
+        setModalContent(<AddEducationModal closeModal = {open => setOpen(open)}/>)
+        setOpen(true)};
+
+    const handleOpenEditLanguages = (language) => {
+        setModalContent(<EditLanguages language={language} closeModal = {open => setOpen(open)}/>)
+        setOpen(true)};
 
     const handleClose = () => setOpen(false);
 
@@ -39,7 +44,7 @@ const MyProfile = () => {
         position: 'absolute',
         top: '55%',
         left: '50%',
-        transform: 'translate(-50%, -50%)',
+        transform: 'translate(-50%, -100%)',
         width: "40%",
         bgcolor: 'background.paper',
         outline: 'none',
@@ -100,7 +105,7 @@ const MyProfile = () => {
                             <div className="section">
                             <div className='header-group'> 
                                     <h3>Education</h3>
-                                    <img src={Add} />
+                                    <img src={Add} onClick={handleOpenAddEducation} />
                                     <img src={Edit} />
                                 </div>
                                 {user.education?.map(edu => {
