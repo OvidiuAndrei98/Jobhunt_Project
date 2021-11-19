@@ -10,7 +10,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -58,7 +57,7 @@ public class Data implements CommandLineRunner {
         Job job9 = new Job("Titlu4", "finance", "Hourly", 100, ExperienceLevel.Experienced, LocalDateTime.now(),"Description", List.of("Skill1", "Skill2"),"USA");
         jobsRepository.saveAll(List.of(job, job2, job3, job4,job5, job6, job7));
         Address address = new Address("Bulevardul Brancoveanu 5", "Bucharest", "Romania");
-        AppUserFreelancer appUserFreelancer = new AppUserFreelancer("profpic", "Penica", "Ovidiu Andrei", "Available", "English: Fluent", List.of(new Education("Academia de Studii Economice din Bucuresti", "Bachelor's Degree", "2017-2020")), "Web, Software Full Stack Dev", "Use this space to show clients you have the skills and experience they're looking for.\n" +
+        AppUserFreelancer appUserFreelancer = new AppUserFreelancer("profpic", "Penica", "Ovidiu Andrei", "Available", List.of(new Language("English", "Full proffesional proficiency")), List.of(new Education("Academia de Studii Economice din Bucuresti", "Bachelor's Degree", "2017-2020")), "Web, Software Full Stack Dev", "Use this space to show clients you have the skills and experience they're looking for.\n" +
                 "Describe your strengths and skills Highlight projects, accomplishments and education Keep it short and make sure it's error-free",List.of("IT","Skill","Skill","Skill","Skill","Skill","Skill","Skill","Skill" ),List.of(new Certification("HTML", "Coursera", 2021)), address , "0743212448","andrei.penica@yahoo.com", passwordEncoder.encode("123456"), Set.of(UserRole.ROLE_FREELANCER));
         appUserFreelancerRepository.save(appUserFreelancer);
     }

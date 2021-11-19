@@ -5,7 +5,6 @@ import com.lancefy.backend.model.authentication.LoginRequestDto;
 import com.lancefy.backend.model.authentication.LoginResponseDto;
 import com.lancefy.backend.security.JwtTokenService;
 import com.lancefy.backend.service.AppUserFreelancerService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
