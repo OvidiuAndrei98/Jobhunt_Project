@@ -996,7 +996,40 @@ height: 110%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.39);
 }
 
+.language-item {
+  padding: 15px 15px 15px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  /* margin-top: 20px; */
+  width: 100%;
+}
 
+.language-item:hover {
+  background-color: #00a39315;
+  width: 105%;
+}
+
+.hide {
+  display: none;
+}
+
+.language-item:hover  .hide{
+  display: inline-block;
+}
+
+.remove-language {
+  display: inline-flex;
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 10px 15px;
+}
+
+.remove-language:hover {
+  background-color: #0cf0d918;
+  cursor: pointer;
+}
 
 
 

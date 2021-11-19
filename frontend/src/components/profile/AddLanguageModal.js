@@ -5,9 +5,13 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
+import {useForm} from 'react-hook-form';
+import AuthService from '../../service/AuthService';
+import AppUserFreelancer from '../../service/AppUserFreelancer';
 
-const AddLanguageModal = () => {
+const AddLanguageModal = (props) => {
     const [filterInputs, setFilterInputs] = useState([])
+    const { register, handleSubmit, formState: {errors} } = useForm();
 
     const handleCategory = (event) => {
         setFilterInputs({...filterInputs, "category": event.target.value})
@@ -32,30 +36,37 @@ const AddLanguageModal = () => {
 
     return (
         <div className="modal-container">
-            <form>
+            <form noValidate onSubmit={
+                        handleSubmit((data) => {
+                            AppUserFreelancer.addFreelancerLanguage(data, AuthService.getCurrentUser().id);
+                            props.closeModal(false);}
+                        )
+                        }>
                 <div className="modal-content-top">
                     <Typography variant="h6">Add Language</Typography>
                 </div>
                 <div className="modal-content-middle">
-                <TextField className={classes.root} id="outlined-basic" label="Language" variant="outlined" size="small" sx={{ minWidth: "100%" }}/>
+                <TextField className={classes.root} id="language" label="Language" variant="outlined" size="small" sx={{ minWidth: "100%" }}
+                {...register("language", {required: true})}/>
                 <FormControl variant="outlined" sx={{ minWidth: "100%" }}>
                                 <TextField
                                      className={classes.root}
                                      size="small"
                                      variant="outlined"
-                                     labelId="category"
-                                     id="category"
+                                     labelId="proficiency"
+                                     id="proficiency"
                                      onChange={handleCategory}
-                                     label="Proeficiency"
+                                     label="Proficiency"
                                      select
+                                    {...register("proficiency", {required: true})}
                                 >
-                                <MenuItem value="undefined">
-                                <em>Please select</em>
+                            <MenuItem value="undefined">
+                            <em>Please select</em>
                               </MenuItem>
-                              <MenuItem value={"Elementary proeficiency"}>Elementary proeficiency</MenuItem>
-                              <MenuItem value={"Limited Working proeficiency"}>Limited Working proeficiency</MenuItem>
-                              <MenuItem value={"Full proffesional proeficiency"}>Full proffesional proeficiency</MenuItem>
-                              <MenuItem value={"Native proeficiency"}>Native proeficiency</MenuItem>
+                              <MenuItem value={"Elementary proficiency"}>Elementary proficiency</MenuItem>
+                              <MenuItem value={"Limited Working proficiency"}>Limited Working proficiency</MenuItem>
+                              <MenuItem value={"Full proffesional proficiency"}>Full proffesional proficiency</MenuItem>
+                              <MenuItem value={"Native proficiency"}>Native proeficiency</MenuItem>
                             </TextField>
                                 </FormControl>
                 </div>

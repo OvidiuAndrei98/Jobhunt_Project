@@ -10,23 +10,34 @@ import AuthService from '../../service/AuthService'
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import AddLanguageModal from './AddLanguageModal'
+import EditLanguages from './EditLanguages'
+import { fontWeight } from '@mui/system'
 
 const MyProfile = () => {
     const [user, setUser] = useState([])
+    const [modalContent, setModalContent] = useState([])
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
+
+    const handleOpenAddLanguages = () => {
+        setModalContent(<AddLanguageModal closeModal = {open => setOpen(open)}/>)
+        setOpen(true)};
+
+        const handleOpenEditLanguages = (language) => {
+            setModalContent(<EditLanguages language={language} closeModal = {open => setOpen(open)}/>)
+            setOpen(true)};
+
     const handleClose = () => setOpen(false);
 
     useEffect(() => {
         AppUserFreelancer.getFreelancerById(AuthService.getCurrentUser().id).then(res => {
             setUser(res.data)
         })
-    }, [])
+    }, [open])
 
     
     const style = {
         position: 'absolute',
-        top: '50%',
+        top: '55%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
         width: "40%",
@@ -34,6 +45,8 @@ const MyProfile = () => {
         outline: 'none',
         p: 4,
         borderRadius: "5px 5px 0 0",
+        maxHeight: "calc(100vh - 210px)",
+        overflowY: "auto",
       };
 
     return (
@@ -60,8 +73,7 @@ const MyProfile = () => {
                             <div className="section">
                                 <div className='header-group'> 
                                     <h3>Language</h3>
-                                    <img src={Add} onClick={handleOpen}/>
-                                    <img src={Edit} />
+                                    <img src={Add} onClick={handleOpenAddLanguages}/>
                                     <Modal
                                         open={open}
                                         onClose={handleClose}
@@ -69,11 +81,21 @@ const MyProfile = () => {
                                         aria-describedby="modal-modal-description"
                                         >
                                         <Box sx={style}>
-                                            <AddLanguageModal />
+                                            {modalContent}
                                         </Box>
                                     </Modal>
                                 </div>
-                                <p>{user.language}</p>
+                                {user.languages?.map((language,index) => {
+                                return (
+                                    <div className="language-item">
+                                        <div>
+                                            <h4 style={{margin:"5px 0", fontWeight:"400"}}>{language.language}</h4>
+                                            <p style={{fontWeight:"400", fontSize:"14px"}}>{language.proficiency}</p>
+                                        </div>
+                                        <img src={Edit} className="hide" onClick={() => {handleOpenEditLanguages(language)}}/>
+
+                                    </div>
+                                )})}
                             </div>
                             <div className="section">
                             <div className='header-group'> 

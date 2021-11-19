@@ -18,9 +18,23 @@ class AppUserFreelancer {
         return axios.post(this.url, freelancer, {headers: AuthHeader()});
     }
     
-    updateFreelancer(freelancer, id) {
+    updateFreelancerPassword(freelancer, id) {
         return axios.put(`${this.url}/update-password/${id}`, freelancer, {headers: AuthHeader()});
     }
+
+    addFreelancerLanguage(language, id) {
+        return axios.post(`${this.url}/add-language/${id}`, language, {headers: AuthHeader()});
+    };
+
+    updateFreelancerLanguage(language, id) {
+        return axios.post(`${this.url}/update-language/${id}`, language, {headers: AuthHeader()});
+    };
+
+    removeFreelancerLanguage(language, id) {
+        return axios.post(`${this.url}/remove-language/${id}`, language, {headers: AuthHeader()});
+    };
+    
+
     
     deleteFreelancer(id) {
         return axios.delete(`${this.url}/${id}`, {headers: AuthHeader()});

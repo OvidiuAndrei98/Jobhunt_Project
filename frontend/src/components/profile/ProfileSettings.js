@@ -21,7 +21,7 @@ const ProfileSettings = () => {
                         <h3>CHANGE PASSWORD</h3>
                         <form noValidate onSubmit={
                         handleSubmit((data) => {
-                            AppUserFreelancer.updateFreelancer(data,AuthService.getCurrentUser().id).then(res => {console.log(res)}
+                            AppUserFreelancer.updateFreelancerPassword(data,AuthService.getCurrentUser().id).then(res => {console.log(res)}
                                 ).catch(err => {console.log(err)});
                         })
                         }>

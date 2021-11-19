@@ -71,14 +71,8 @@ const FindWork = () => {
           },
       }));
 
-      const buttonStyles = makeStyles((theme) => ({
-        root: {
-            background: '#00A392',
-          },
-      }));
 
       const classes = useStyles();
-    //   const classes2 = buttonStyles();
 
     return (
         <>
