@@ -1,18 +1,20 @@
 import React, {useState, useEffect} from 'react'
-import Footer from '../navigation/Footer'
-import Navbar from '../navigation/Navbar'
-import SideNav from '../navigation/SideNav'
-import ProfilePhoto from '../../assets/ProfilePhoto.png'
-import Edit from '../../assets/Edit.png'
-import Add from '../../assets/Add.png'
-import AppUserFreelancer from '../../service/AppUserFreelancer'
-import AuthService from '../../service/AuthService'
+import Footer from '../../navigation/Footer'
+import Navbar from '../../navigation/Navbar'
+import SideNav from '../../navigation/SideNav'
+import ProfilePhoto from '../../../assets/ProfilePhoto.png'
+import Edit from '../../../assets/Edit.png'
+import Add from '../../../assets/Add.png'
+import AppUserFreelancer from '../../../service/AppUserFreelancer'
+import AuthService from '../../../service/AuthService'
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import AddLanguageModal from './AddLanguageModal'
 import EditLanguages from './EditLanguages'
-import { fontWeight } from '@mui/system'
 import AddEducationModal from './AddEducationModal'
+import EditEducationModal from './EditEducation'
+import EditPersonalDescription from './EditPersonalDescription'
+import EditSkillsModal from './EditSkillsModal'
 
 const MyProfile = () => {
     const [user, setUser] = useState([])
@@ -31,6 +33,20 @@ const MyProfile = () => {
         setModalContent(<EditLanguages language={language} closeModal = {open => setOpen(open)}/>)
         setOpen(true)};
 
+    const handleOpenEditEducation = (education) => {
+        setModalContent(<EditEducationModal education={education} closeModal = {open => setOpen(open)}/>)
+        setOpen(true)};
+
+    const handleOpenEditSelfDescription = (title,selfDescription) => {
+        setModalContent(<EditPersonalDescription title={title} selfDescription={selfDescription} closeModal = {open => setOpen(open)}/>)
+        setOpen(true)};
+
+    const handleOpenEditSkills = (skills) => {
+        setModalContent(<EditSkillsModal skills={skills} closeModal = {open => setOpen(open)}/>)
+        setOpen(true)}
+
+        
+
     const handleClose = () => setOpen(false);
 
     useEffect(() => {
@@ -42,16 +58,16 @@ const MyProfile = () => {
     
     const style = {
         position: 'absolute',
-        top: '55%',
-        left: '50%',
-        transform: 'translate(-50%, -100%)',
+        top: '10%',
+        left: '31%',
+        // transform: 'translateX(-50%)',
+        // transform: 'translateY(-50%)',
         width: "40%",
         bgcolor: 'background.paper',
         outline: 'none',
         p: 4,
         borderRadius: "5px 5px 0 0",
-        maxHeight: "calc(100vh - 210px)",
-        overflowY: "auto",
+        // maxHeight: "calc(100vh - 210px)",
       };
 
     return (
@@ -106,15 +122,17 @@ const MyProfile = () => {
                             <div className='header-group'> 
                                     <h3>Education</h3>
                                     <img src={Add} onClick={handleOpenAddEducation} />
-                                    <img src={Edit} />
                                 </div>
                                 {user.education?.map(edu => {
                                     return (
+                                        <div className="language-item">
                                         <div>
-                                        <p>{edu.education}</p>
-                                        <p>{edu.educationSpecialization}</p>
-                                        <p>{edu.educationPeriod}</p>
+                                            <h4 style={{margin:"5px 0", fontWeight:"400"}}>{edu.education}</h4>
+                                            <p style={{fontWeight:"400", fontSize:"14px"}}>{edu.educationSpecialization}</p>
+                                            <p style={{fontWeight:"400", fontSize:"14px"}}>{edu.educationPeriod}</p>
                                         </div>
+                                        <img src={Edit} className="hide" onClick={() => {handleOpenEditEducation(edu)}}/>
+                                    </div>
                                     )
                                 })}
                             </div>
@@ -124,23 +142,21 @@ const MyProfile = () => {
                                 <div className="header-flex-row">
                                     <div className='header-group'>  
                                         <h3>{user.title}</h3>
-                                        <img src={Edit} />
+                                        <img src={Edit} onClick={() => {handleOpenEditSelfDescription(user.title, user.selfDescription)}} />
                                     </div>
                                     <div className='header-group'>  
                                         <h5>$10.00/hr</h5>
-                                        <img src={Edit} />
                                     </div>
                                 </div>
                                 <div className="description">
                                     <p>{user.selfDescription}</p>
-                                    <img src={Edit} />
                                 </div>
                             </div>
                             <div className="break-line"></div>
                             <div className="section-middle">
                                 <div className='header-group-middle'>  
                                     <h3>Skills</h3>
-                                    <img src={Edit} />
+                                    <img src={Edit} onClick={() => {handleOpenEditSkills(user.skills)}} />
                                 </div>
                                 <div className="middle-skills">
                                     {user.skills?.map(skill => {

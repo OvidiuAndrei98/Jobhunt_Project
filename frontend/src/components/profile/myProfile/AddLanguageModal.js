@@ -6,8 +6,8 @@ import FormControl from '@mui/material/FormControl';
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import {useForm} from 'react-hook-form';
-import AuthService from '../../service/AuthService';
-import AppUserFreelancer from '../../service/AppUserFreelancer';
+import AuthService from '../../../service/AuthService';
+import AppUserFreelancer from '../../../service/AppUserFreelancer';
 
 const AddLanguageModal = (props) => {
     const [filterInputs, setFilterInputs] = useState([])

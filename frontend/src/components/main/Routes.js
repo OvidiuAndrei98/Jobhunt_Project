@@ -6,7 +6,7 @@ import HomePage from './HomePage';
 import Footer from '../navigation/Footer';
 import FindWork from '../jobs/FindWork';
 import ContactInfo from '../profile/ContactInfo';
-import MyProfile from '../profile/MyProfile';
+import MyProfile from '../profile/myProfile/MyProfile';
 import ProfileSettings from '../profile/ProfileSettings';
 
 const Routes = () => {

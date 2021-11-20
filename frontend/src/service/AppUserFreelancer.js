@@ -26,13 +26,31 @@ class AppUserFreelancer {
         return axios.post(`${this.url}/add-language/${id}`, language, {headers: AuthHeader()});
     };
 
+    addFreelancerEducation(education, id) {
+        return axios.post(`${this.url}/add-education/${id}`, education, {headers: AuthHeader()});
+    };
+
     updateFreelancerLanguage(language, id) {
         return axios.post(`${this.url}/update-language/${id}`, language, {headers: AuthHeader()});
+    };
+
+    updateFreelancerEducation(education, id) {
+        return axios.post(`${this.url}/update-education/${id}`, education, {headers: AuthHeader()});
     };
 
     removeFreelancerLanguage(language, id) {
         return axios.post(`${this.url}/remove-language/${id}`, language, {headers: AuthHeader()});
     };
+
+    removeFreelancerEducation(education, id) {
+        return axios.post(`${this.url}/remove-education/${id}`, education, {headers: AuthHeader()});
+    };
+
+    updateFreelancerDescription(description, id) {
+        return axios.post(`${this.url}/update-description/${id}`, description, {headers: AuthHeader()});
+    };
+
+    
     
 
     

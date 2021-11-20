@@ -6,8 +6,8 @@ import FormControl from '@mui/material/FormControl';
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import {useForm} from 'react-hook-form';
-import AuthService from '../../service/AuthService';
-import AppUserFreelancer from '../../service/AppUserFreelancer';
+import AuthService from '../../../service/AuthService';
+import AppUserFreelancer from '../../../service/AppUserFreelancer';
 
 const AddEducationModal = (props) => {
     const [filterInputs, setFilterInputs] = useState([])
@@ -38,7 +38,10 @@ const AddEducationModal = (props) => {
         <div className="modal-container">
             <form noValidate onSubmit={
                         handleSubmit((data) => {
-                            AppUserFreelancer.addFreelancerLanguage(data, AuthService.getCurrentUser().id);
+                            AppUserFreelancer.addFreelancerEducation({
+                              education: data.education, 
+                              educationSpecialization: data.educationSpecialization, 
+                              educationPeriod: `${data.yearFrom}-${data.yearTo}` }, AuthService.getCurrentUser().id);
                             props.closeModal(false);}
                         )
                         }>
@@ -56,8 +59,8 @@ const AddEducationModal = (props) => {
                       {...register("yearFrom", {required: true})}/>           
                     </FormControl>
                     <FormControl variant="outlined" sx={{ minWidth: "50px" }}>
-                      <TextField className={classes.root} id="yearto" label="Year to" variant="outlined" size="small" sx={{ minWidth: "50px" }}
-                      {...register("yearFTo", {required: true})}/>           
+                      <TextField className={classes.root} id="yearTo" label="Year to" variant="outlined" size="small" sx={{ minWidth: "50px" }}
+                      {...register("yearTo", {required: true})}/>           
                     </FormControl>
                   </div>
                 </div>
