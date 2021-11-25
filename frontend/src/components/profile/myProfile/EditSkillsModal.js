@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import SkillsApi from '../../../service/SkillsApi';
-import {useForm} from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import AppUserFreelancer from '../../../service/AppUserFreelancer';
+import AuthService from '../../../service/AuthService';
 
 const EditSkillsModal = (props) => {
     const [skills, setSkills] = useState([])
@@ -29,8 +30,9 @@ const EditSkillsModal = (props) => {
         })
     }
    
-    const top100Films = ["asd", "bas", "lasd"
-    ]
+    const handleSubmit = () => {
+        AppUserFreelancer.addFreelancerSkills(savingSkills, AuthService.getCurrentUser().id);
+    }
 
     return (
         <div className="modal-container">
@@ -58,7 +60,7 @@ const EditSkillsModal = (props) => {
                     
             </div>
             <div className="modal-content-bottom">
-                <Button type="submit" style={{background:"#F0540C"}} variant="contained" sx={{borderRadius:"5px", padding:"10px 5px", height:"0", marginTop:"20px", float:"right", marginBottom:"0"}}>Save Changes</Button>
+                <Button type="submit" onClick={handleSubmit} style={{background:"#F0540C"}} variant="contained" sx={{borderRadius:"5px", padding:"10px 5px", height:"0", marginTop:"20px", float:"right", marginBottom:"0"}}>Save Changes</Button>
             </div>
             </form>
         </div>

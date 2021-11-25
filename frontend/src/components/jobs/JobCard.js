@@ -1,19 +1,26 @@
 import React from 'react'
-import Heart from '../../assets/Heart.png'
 import Marker from '../../assets/Marker.png'
 import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { useHistory } from 'react-router-dom';
+
 
 
 const JobCard = ({job}) => {
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-    console.log(job);
+    const history = useHistory();
+
+
+    const goToJob = () => {
+        history.push({
+            pathname: `/job/${job.id}`,
+            state: {job: job}
+        })
+    }
 
     return (
-        <div className="jobCard">
+        <div className="jobCard" onClick={goToJob}>
             <div className="jobCard__header">
                 <div style={{display:"flex", justifyContent:"space-between"}}>
                     <h2 className="jobCard__header__title">{job.title}</h2>

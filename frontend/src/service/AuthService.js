@@ -1,3 +1,4 @@
+import userEvent from "@testing-library/user-event";
 import axios from "axios";
 
 const API_URL = "http://localhost:8080/auth";
@@ -26,8 +27,19 @@ class AuthService {
     }
 
     register(freelancer) {
-        console.log(freelancer);
         return axios.post(`${API_URL}/register-freelancer`, freelancer);
+    }
+
+    createCompanyAccount(company, id) {
+        return axios.post(`${API_URL}/register-company/${id}`, company);
+    }
+
+    switchToCompany(id) {
+       return axios.post(`${API_URL}/switch-account/company/${id}`);
+    }
+
+    switchToFreelancer(id) {
+       return axios.post(`${API_URL}/switch-account/freelancer/${id}`)
     }
 
 }

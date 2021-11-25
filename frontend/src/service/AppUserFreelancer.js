@@ -30,6 +30,14 @@ class AppUserFreelancer {
         return axios.post(`${this.url}/add-education/${id}`, education, {headers: AuthHeader()});
     };
 
+    addFreelancerSkills(skills, id) { 
+        return axios.post(`${this.url}/add-skills/${id}`, {skills: skills}, {headers: AuthHeader()});
+}
+
+    addFreelancerCertification(certification, id) {
+        return axios.post(`${this.url}/add-certification/${id}`, certification, {headers: AuthHeader()});
+    };
+
     updateFreelancerLanguage(language, id) {
         return axios.post(`${this.url}/update-language/${id}`, language, {headers: AuthHeader()});
     };

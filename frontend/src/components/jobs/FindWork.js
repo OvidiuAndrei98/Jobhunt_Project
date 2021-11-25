@@ -13,6 +13,7 @@ import Footer from '../navigation/Footer'
 import JobsService from '../../service/JobsService'
 
 
+
 const FindWork = () => {
     const [jobs, setJobs] = useState([]);
     const [search, setSearch] = useState('');
@@ -57,7 +58,6 @@ const FindWork = () => {
         JobsService.getAllJobs().then(res => {  
             setJobs(res.data)});
     },[])
-
 
     const useStyles = makeStyles((theme) => ({
         root: {

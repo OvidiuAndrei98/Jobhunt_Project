@@ -8,6 +8,10 @@ import FindWork from '../jobs/FindWork';
 import ContactInfo from '../profile/ContactInfo';
 import MyProfile from '../profile/myProfile/MyProfile';
 import ProfileSettings from '../profile/ProfileSettings';
+import JobDetailsPage from '../jobs/JobDetailsPage';
+import Apply from '../jobs/Apply';
+import CreateCompanyAccount from '../company/CreateCompanyAccount';
+import { CompanyProfile } from '../company/profile/CompanyProfile';
 
 const Routes = () => {
     return (
@@ -25,7 +29,12 @@ const Routes = () => {
                     <Route path="/user/contact" component={ContactInfo} />
                     <Route path="/login" component={Login} />
                     <Route path="/register" component={Register}/>
-                    <Route path="/work" component={FindWork}/>
+                    <Route path="/jobs" component={FindWork}/>
+                    <Route path="/job/:id" component={JobDetailsPage}/>
+                    <Route path="/application" component={Apply}/>
+                    <Route path="/company/create-company-account" component={CreateCompanyAccount}/>
+                    <Route path="/company/profile" component={CompanyProfile}/>
+                    
                 </Switch>
             </Router>
         {/* <Footer/> */}

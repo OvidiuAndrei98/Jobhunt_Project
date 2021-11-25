@@ -15,19 +15,25 @@ import AddEducationModal from './AddEducationModal'
 import EditEducationModal from './EditEducation'
 import EditPersonalDescription from './EditPersonalDescription'
 import EditSkillsModal from './EditSkillsModal'
+import AddCertificationModal from './AddCertificationModal'
 
 const MyProfile = () => {
     const [user, setUser] = useState([])
     const [modalContent, setModalContent] = useState([])
     const [open, setOpen] = React.useState(false);
 
-    const handleOpenAddLanguages = () => {
-        setModalContent(<AddLanguageModal closeModal = {open => setOpen(open)}/>)
-        setOpen(true)};
+    const handleOpenModal = (content) => {  
+        setModalContent(content)
+        setOpen(true);
+    }
 
-    const handleOpenAddEducation = () => {
-        setModalContent(<AddEducationModal closeModal = {open => setOpen(open)}/>)
-        setOpen(true)};
+    // const handleOpenAddLanguages = () => {
+    //     setModalContent(<AddLanguageModal closeModal = {open => setOpen(open)}/>)
+    //     setOpen(true)};
+
+    // const handleOpenAddEducation = () => {
+    //     setModalContent(<AddEducationModal closeModal = {open => setOpen(open)}/>)
+    //     setOpen(true)};
 
     const handleOpenEditLanguages = (language) => {
         setModalContent(<EditLanguages language={language} closeModal = {open => setOpen(open)}/>)
@@ -45,8 +51,10 @@ const MyProfile = () => {
         setModalContent(<EditSkillsModal skills={skills} closeModal = {open => setOpen(open)}/>)
         setOpen(true)}
 
-        
-
+    // const handleOpenAddCertifications = () => {  
+    //     setModalContent(<AddCertificationModal closeModal = {open => setOpen(open)}/>)
+    //     setOpen(true)}
+    
     const handleClose = () => setOpen(false);
 
     useEffect(() => {
@@ -94,7 +102,7 @@ const MyProfile = () => {
                             <div className="section">
                                 <div className='header-group'> 
                                     <h3>Language</h3>
-                                    <img src={Add} onClick={handleOpenAddLanguages}/>
+                                    <img src={Add} onClick={() => handleOpenModal(<AddLanguageModal closeModal = {open => setOpen(open)} />)}/>
                                     <Modal
                                         open={open}
                                         onClose={handleClose}
@@ -121,11 +129,11 @@ const MyProfile = () => {
                             <div className="section">
                             <div className='header-group'> 
                                     <h3>Education</h3>
-                                    <img src={Add} onClick={handleOpenAddEducation} />
+                                    <img src={Add} onClick={() => handleOpenModal(<AddEducationModal closeModal = {open => setOpen(open)}/>)} />
                                 </div>
                                 {user.education?.map(edu => {
                                     return (
-                                        <div className="language-item">
+                                    <div className="language-item">
                                         <div>
                                             <h4 style={{margin:"5px 0", fontWeight:"400"}}>{edu.education}</h4>
                                             <p style={{fontWeight:"400", fontSize:"14px"}}>{edu.educationSpecialization}</p>
@@ -161,7 +169,7 @@ const MyProfile = () => {
                                 <div className="middle-skills">
                                     {user.skills?.map(skill => {
                                         return (
-                                            <div className="skill">{skill}</div>
+                                            <div className="skill">{skill} <div className="hide">x</div></div>
                                         )
                                     })}
                                 </div>
@@ -170,14 +178,20 @@ const MyProfile = () => {
                             <div className="section-lower">
                                 <div className='header-group-lower'>
                                     <h3>Certifications</h3>
-                                    <img src={Edit} />
+                                    <img src={Add} onClick={() => handleOpenModal(<AddCertificationModal closeModal = {open => setOpen(open)}/>)}/>
+                                    {/* <img src={Edit} /> */}
                                 </div>
                                 {user.certifications?.map(cert => {
                                     return (
-                                        <div>
-                                            <h4>{cert.title}</h4>
-                                            <p>{cert.issuer} {cert.year}</p>
-                                        </div>
+                                        <div className="certification-item">
+                                            <div>
+                                                <h4 style={{fontWeight:"400"}}>{cert.title}</h4>
+                                                <p style={{fontWeight:"400", fontSize:"14px"}}>{cert.issuer}</p>
+                                                <p style={{fontWeight:"400", fontSize:"14px"}}>Issued {cert.month} {cert.year}</p>
+                                                <a href={cert.credentialUrl} style={{fontWeight:"700", fontSize:"14px"}}>See credential</a>
+                                            </div>
+                                            <img src={Edit} className="hide"/>
+                                         </div>
                                     )
                                 })}
                             </div>
