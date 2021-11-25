@@ -11,6 +11,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Footer from '../navigation/Footer'
 import JobsService from '../../service/JobsService'
+import { useHistory } from 'react-router-dom'
 
 
 
@@ -18,6 +19,7 @@ const FindWork = () => {
     const [jobs, setJobs] = useState([]);
     const [search, setSearch] = useState('');
     const [filterInputs, setFilterInputs] = useState([])
+    const history = useHistory();
 
     const handleCategory = (event) => {
         setFilterInputs({...filterInputs, "category": event.target.value})
@@ -56,7 +58,7 @@ const FindWork = () => {
 
     useEffect(() => {
         JobsService.getAllJobs().then(res => {  
-            setJobs(res.data)});
+            setJobs(res.data)}).catch(err => {history.push('/user-error')});
     },[])
 
     const useStyles = makeStyles((theme) => ({

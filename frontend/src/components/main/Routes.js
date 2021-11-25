@@ -12,6 +12,9 @@ import JobDetailsPage from '../jobs/JobDetailsPage';
 import Apply from '../jobs/Apply';
 import CreateCompanyAccount from '../company/CreateCompanyAccount';
 import { CompanyProfile } from '../company/profile/CompanyProfile';
+import PrivateRoute from '../../util/PrivateRoute';
+import UserError from '../../util/UserError';
+import { MyJobs } from '../company/jobs/MyJobs';
 
 const Routes = () => {
     return (
@@ -24,16 +27,19 @@ const Routes = () => {
                     <PrivateRoute path="/company-applicants" component={Users} />
                     <PrivateRoute path="/edit-job" component={EditJob} />
                     <PrivateRoute path="/add-job" component={AddJob} /> */}
-                    <Route path="/user/profile-settings" component={ProfileSettings} />
-                    <Route path="/user/my-profile" component={MyProfile} />
-                    <Route path="/user/contact" component={ContactInfo} />
+                    <PrivateRoute path="/user/profile-settings" component={ProfileSettings} />
+                    <PrivateRoute path="/user/my-profile" component={MyProfile} />
+                    <PrivateRoute path="/user/contact" component={ContactInfo} />
                     <Route path="/login" component={Login} />
                     <Route path="/register" component={Register}/>
-                    <Route path="/jobs" component={FindWork}/>
-                    <Route path="/job/:id" component={JobDetailsPage}/>
-                    <Route path="/application" component={Apply}/>
-                    <Route path="/company/create-company-account" component={CreateCompanyAccount}/>
-                    <Route path="/company/profile" component={CompanyProfile}/>
+                    <PrivateRoute path="/work" component={FindWork}/>
+                    <PrivateRoute path="/job/:id" component={JobDetailsPage}/>
+                    <PrivateRoute path="/application" component={Apply}/>
+
+                    <PrivateRoute path="/company/create-company-account" component={CreateCompanyAccount}/>
+                    <PrivateRoute path="/company/profile" component={CompanyProfile}/>
+                    <PrivateRoute path="/user-error" component={UserError}/>
+                    <PrivateRoute path="/jobs" component={MyJobs}/>
                     
                 </Switch>
             </Router>

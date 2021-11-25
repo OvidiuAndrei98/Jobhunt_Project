@@ -16,7 +16,7 @@ const ContactInfo = () => {
     useEffect(() => {
         AppUserFreelancer.getFreelancerById(AuthService.getCurrentUser().id).then(res => {
             setUser(res.data)
-        })
+        }).catch(err => {history.push('/user-error')});
     }, [])
 
     const createAccount = () => {

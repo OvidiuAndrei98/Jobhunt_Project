@@ -16,11 +16,13 @@ import EditEducationModal from './EditEducation'
 import EditPersonalDescription from './EditPersonalDescription'
 import EditSkillsModal from './EditSkillsModal'
 import AddCertificationModal from './AddCertificationModal'
+import { useHistory } from 'react-router-dom'
 
 const MyProfile = () => {
     const [user, setUser] = useState([])
     const [modalContent, setModalContent] = useState([])
     const [open, setOpen] = React.useState(false);
+    const history = useHistory()
 
     const handleOpenModal = (content) => {  
         setModalContent(content)
@@ -60,7 +62,7 @@ const MyProfile = () => {
     useEffect(() => {
         AppUserFreelancer.getFreelancerById(AuthService.getCurrentUser().id).then(res => {
             setUser(res.data)
-        })
+        }).catch(err => {history.push('/user-error')});
     }, [open])
 
     

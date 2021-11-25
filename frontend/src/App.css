@@ -131,6 +131,16 @@ background-color: #00A392;
   text-decoration: none;
 }
 
+.nav > ul > li > a:hover {
+  color: #F0540C;
+}
+
+.active-link a {
+  color: #F0540C!important;
+}
+
+
+
 .footer-container {
   position: relative;
   display: flex;
@@ -699,7 +709,7 @@ height: 110%;
   text-indent: 20px;
   font-weight: 500;
   border-bottom: 1px solid rgba(0, 0, 0, 0.459);
-  padding: 10px 0;
+  padding: 20px 0;
 }
 
 .account-header img {
@@ -1249,5 +1259,16 @@ font-size: 15px;}
   margin-bottom: 50px;
   background-color: white;
 }
+
+.close-account {
+  color: #F0540C;
+  cursor: pointer;
+}
+
+.close-account:hover {
+  text-decoration: underline;
+  color: #bd4208c5;
+}
+
 
 @keyframes floating{from{-webkit-transform:rotate(0deg) translate(-10px) rotate(0deg);transform:rotate(0deg) translate(-10px) rotate(0deg)}to{-webkit-transform:rotate(360deg) translate(-10px) rotate(-360deg);transform:rotate(360deg) translate(-10px) rotate(-360deg)}}
