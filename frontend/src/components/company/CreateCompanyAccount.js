@@ -6,9 +6,11 @@ import {useForm} from 'react-hook-form';
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import AuthService from '../../service/AuthService';
+import { useHistory } from 'react-router-dom';
 
 const CreateCompanyAccount = () => {
     const { register, handleSubmit, formState: {errors} } = useForm();
+    const history = useHistory();
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -31,6 +33,8 @@ const CreateCompanyAccount = () => {
             <form noValidate onSubmit={
             handleSubmit((data) => {
                 AuthService.createCompanyAccount(data, AuthService.getCurrentUser().id)
+                history.push('/user/contact')
+                window.location.reload()
                 }
                 )
             }>

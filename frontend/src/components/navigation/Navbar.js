@@ -10,6 +10,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 
 const Navbar = () => {
     const [popUp, setPopUp] = React.useState(false);
+    const [show, setShow] = React.useState({display: "none"});
     const [accountType, setAccountType] = React.useState([]);
     const user = AuthService.getCurrentUser();
     const history = useHistory();
@@ -20,6 +21,15 @@ const Navbar = () => {
 
     const handlePopup = () => {
         setPopUp(!popUp);
+    }
+
+    const handleShow = () => {
+        setShow({display: "flex"});
+        setPopUp(false);
+    }
+
+    const handleShowLeave = () => {
+        setShow({display: "none"});
     }
 
     const goToProfile = () => {
@@ -84,7 +94,13 @@ const Navbar = () => {
                         </ul>) : ("")}</li>
                     ]
                     ) : ([
-                        <li><NavLink to="/">Jobs</NavLink></li>,
+                        <li><NavLink to="/jobs" onMouseEnter={handleShow} onMouseLeave={handleShowLeave}>Jobs</NavLink>
+                        <ul className="jobs-dropdown-hover" onMouseEnter={handleShow} onMouseLeave={handleShowLeave} style={show}>   
+                            <li><NavLink to="/jobs"><div className="profile-pop-up">My Posts</div></NavLink></li>
+                            <li><div className="profile-pop-up">All job posts</div></li>
+                            <li><div className="profile-pop-up">All contracts</div></li>
+                            <li><div className="profile-pop-up"> Post job</div></li>
+                        </ul></li>,
                         <li><NavLink to="/">Talents</NavLink></li>,
                         <li><NavLink to="/">Messages</NavLink></li>,
                     <li><img src={DefaultPic} className="profile-photo" onClick={handlePopup} />

@@ -15,6 +15,10 @@ import { CompanyProfile } from '../company/profile/CompanyProfile';
 import PrivateRoute from '../../util/PrivateRoute';
 import UserError from '../../util/UserError';
 import { MyJobs } from '../company/jobs/MyJobs';
+import GettingStarted from '../company/jobs/postJob/GettingStarted';
+import Title from '../company/jobs/postJob/Title';
+import Skills from '../company/jobs/postJob/Skills';
+
 
 const Routes = () => {
     return (
@@ -40,6 +44,10 @@ const Routes = () => {
                     <PrivateRoute path="/company/profile" component={CompanyProfile}/>
                     <PrivateRoute path="/user-error" component={UserError}/>
                     <PrivateRoute path="/jobs" component={MyJobs}/>
+                    <PrivateRoute path="/job-post/getting-started" component={GettingStarted}/>
+                    <PrivateRoute path="/job-post/title" component={Title}/>
+                    <PrivateRoute path="/job-post/skills" component={Skills}/>
+
                     
                 </Switch>
             </Router>

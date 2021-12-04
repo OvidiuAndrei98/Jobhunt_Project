@@ -38,7 +38,7 @@ const EditSkillsModal = (props) => {
         <div className="modal-container">
             <form>
             <div className="modal-content-top">
-                    <Typography variant="h6">Edit languages</Typography>
+                    <Typography variant="h6">Edit Skills</Typography>
             </div>
             <div className="middle-skills" style={{marginTop:"30px", marginBottom:"50px", marginLeft:"0", padding:"0"}}>
                 {savingSkills?.map(skill => {

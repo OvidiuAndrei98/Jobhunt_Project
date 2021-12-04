@@ -17,7 +17,6 @@ export const CompanyProfile = () => {
             setUser(res.data)
         })
     }, [])
-    console.log(user)
     return (
         <div>
             <Navbar />
