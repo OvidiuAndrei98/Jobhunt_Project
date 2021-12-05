@@ -6,13 +6,30 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Time from '../../../../assets/Time.png'
 import Calendar from '../../../../assets/Calendar.png'
 import Button from '@mui/material/Button';
+import { useHistory } from "react-router-dom";
+import JobsService from '../../../../service/JobsService';
 
-const GettingStarted = () => {
+
+const GettingStarted = ({skills}) => {
     const [selectedValue, setSelectedValue] = React.useState('a');
-    const [, setChecked ] = useState(false);
     const handleChange = (event) => {
         setSelectedValue(event);
     };
+
+    const history = useHistory();
+
+    const GoToNextStep = () => {
+        if (selectedValue != 'a') {
+            // de trimis obiectul la next page si salvat cu urmatoarea pagina in db
+            JobsService.saveJobDraftGettingStarted(selectedValue).then(res => {
+                history.push(`/job-post/title/${res.data}`);
+                history.push({
+                    pathname: `/job-post/title/${res.data}`,
+                    state: {jobDraft: {workingHours: selectedValue}}
+                })
+            });
+        }
+    }
 
     const theme = createTheme({
     palette: {
@@ -38,12 +55,12 @@ const GettingStarted = () => {
             <div className="job-box">
                 <p style={{fontSize:"18px"}}>What would you like to do?</p>
                 <div className="flex-row">
-                    <div className="select-card" style={{borderColor: selectedValue=="c"? "#F0540C" : "rgba(0, 0, 0, 0.20)" }} onClick={() => handleChange("c")}>
+                    <div className="select-card" style={{borderColor: selectedValue=="Less than 30 hrs/week"? "#F0540C" : "rgba(0, 0, 0, 0.20)" }} onClick={() => handleChange("Less than 30 hrs/week")}>
                         <div className="select-outer-circle">
                         <Radio
                             color="orange"
                             size="small"
-                            {...controlProps('c')}
+                            {...controlProps('Less than 30 hrs/week')}
                             />
                         </div>
                         <div className="select-inner-circle"></div>
@@ -52,12 +69,12 @@ const GettingStarted = () => {
                         <p style={{fontSize:"17px", color:"rgba(0, 0, 0, 0.45)"}}>Less than 30 hrs/week</p>
                         <p style={{fontSize:"17px", color:"rgba(0, 0, 0, 0.45)"}}>Less than 3 months</p>
                     </div>
-                    <div className="select-card"  style={{borderColor: selectedValue=="d"? "#F0540C" : "rgba(0, 0, 0, 0.20)" }} onClick={() => handleChange("d")}>
+                    <div className="select-card"  style={{borderColor: selectedValue=="More than 30 hrs/week"? "#F0540C" : "rgba(0, 0, 0, 0.20)" }} onClick={() => handleChange("More than 30 hrs/week")}>
                         <div className="select-outer-circle">
                         <Radio
                             size="small"
                             color="orange"
-                            {...controlProps('d')}
+                            {...controlProps('More than 30 hrs/week')}
                             />
                         </div>
                         <div className="select-inner-circle"></div>
@@ -71,7 +88,7 @@ const GettingStarted = () => {
             <div className="job-box flex-row" style={{borderRadius:"5px", justifyContent:"flex-end"}}>
                 <div style={{alignItems:"center", display:"flex"}}>
                 <p style={{fontSize:"17px", color:"#F0540C",marginRight:"20px", cursor:"pointer"}}>Cancel</p>
-                <Button type="submit" style={{background:"#F0540C"}} variant="contained" sx={{borderRadius:"25px", padding:"6px 20px"}}>Continue</Button>
+                <Button type="submit" style={{background:"#F0540C"}} variant="contained" sx={{borderRadius:"25px", padding:"6px 20px"}} onClick={GoToNextStep}>Continue</Button>
                 </div>
             </div>
         </div>

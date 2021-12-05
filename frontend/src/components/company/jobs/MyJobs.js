@@ -4,10 +4,16 @@ import Navbar from '../../navigation/Navbar'
 import Button from '@mui/material/Button';
 import AppUserFreelancer from '../../../service/AppUserFreelancer';
 import AuthService from '../../../service/AuthService';
+import {useHistory} from 'react-router-dom';
 
 
 export const MyJobs = () => {
     const [user, setUser] = useState([])
+    const history = useHistory();    
+
+    const GoToPosting = () => { 
+        history.push('/job-post/getting-started')
+    }
 
     useEffect(() => {
         AppUserFreelancer.getFreelancerById(AuthService.getCurrentUser().id).then(res => {
@@ -30,7 +36,7 @@ export const MyJobs = () => {
                    <span style={{color:"#F0540C", cursor:"pointer"}}>All postings</span>
                 </div>
                 <div className="job-box align-center">
-                    <Button type="submit" style={{background:"#F0540C",marginBottom:"10px"}} variant="contained" sx={{borderRadius:"25px", padding:"6px 20px"}}>Post job</Button>
+                    <Button style={{background:"#F0540C",marginBottom:"10px"}} variant="contained" sx={{borderRadius:"25px", padding:"6px 20px"}} onClick={GoToPosting}>Post job</Button>
                    <p>Not ready to post? Try a <span style={{color:"#F0540C", cursor:"pointer"}}>predefined project</span>,</p>
                     <p>or build a list of newly <span style={{color:"#F0540C", cursor:"pointer"}}>discovered talent.</span></p>
                 </div>

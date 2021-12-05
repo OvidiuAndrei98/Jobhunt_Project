@@ -18,6 +18,9 @@ import { MyJobs } from '../company/jobs/MyJobs';
 import GettingStarted from '../company/jobs/postJob/GettingStarted';
 import Title from '../company/jobs/postJob/Title';
 import Skills from '../company/jobs/postJob/Skills';
+import JobScope from '../company/jobs/postJob/JobScope';
+import JobBudget from '../company/jobs/postJob/JobBudget';
+import ReviewJob from '../company/jobs/postJob/ReviewJob';
 
 
 const Routes = () => {
@@ -45,8 +48,12 @@ const Routes = () => {
                     <PrivateRoute path="/user-error" component={UserError}/>
                     <PrivateRoute path="/jobs" component={MyJobs}/>
                     <PrivateRoute path="/job-post/getting-started" component={GettingStarted}/>
-                    <PrivateRoute path="/job-post/title" component={Title}/>
+                    <PrivateRoute path="/job-post/title/:id" component={Title}/>
                     <PrivateRoute path="/job-post/skills" component={Skills}/>
+                    <PrivateRoute path="/job-post/scope" component={JobScope}/>
+                    <PrivateRoute path="/job-post/budget" component={JobBudget}/>
+                    <PrivateRoute path="/job-post/review-job" component={ReviewJob}/>
+
 
                     
                 </Switch>

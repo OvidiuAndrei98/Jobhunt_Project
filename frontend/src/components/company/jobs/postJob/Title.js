@@ -11,10 +11,18 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Button from '@mui/material/Button';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
+import JobsService from '../../../../service/JobsService';
+
 
 const JobTitle = () => {
     const { register, handleSubmit, formState: {errors} } = useForm();
-    const [value, setValue] = React.useState('female');
+    const [value, setValue] = React.useState('a');
+    const {id} = useParams()
+
+    const history = useHistory();
+    const location = useLocation();
+    const jobDraft = location.state?.jobDraft;
 
     const theme = createTheme({
         palette: {
@@ -46,9 +54,11 @@ const JobTitle = () => {
         <Navbar />
         <form noValidate onSubmit={
             handleSubmit((data) => {
-                // AuthService.createCompanyAccount(data, AuthService.getCurrentUser().id)
-                // history.push('/user/contact')
-                // window.location.reload()
+                JobsService.saveJobDraftTitle({id: id, title: data.title, category: value, workingHours: jobDraft?.workingHours});
+                history.push({
+                    pathname: `/job-post/skills`,
+                    state: {jobDraft: {id: id, title: data.title, category: value, workingHours: jobDraft.workingHours}}
+                })
                 })
             }>
         <div className="info-header">
@@ -79,8 +89,8 @@ const JobTitle = () => {
             </div>
             <div className="post-box">
                 <h4 style={{marginBottom:"15px"}}>Write a title for your job post.</h4>
-                <TextField className={classes.root} id="jobTitle" label="Title" variant="outlined" size="small" sx={{ minWidth: "50%" }}
-                {...register("jobTitle", {required: true})}/>
+                <TextField className={classes.root} id="title" label="Title" variant="outlined" size="small" sx={{ minWidth: "50%" }}
+                {...register("title", {required: true})}/>
                 <ol style={{marginTop:"30px"}}>Example titles:</ol>
                 <li style={{marginTop:"10px", marginLeft:"20px"}}>UX/UI designer to bring website mockup and prototype to life</li>
                 <li style={{marginTop:"10px",marginLeft:"20px"}}>Video editor needed to create whiteboard explainer video</li>
@@ -102,7 +112,7 @@ const JobTitle = () => {
                 </ThemeProvider>
                 <div className="flex-row" style={{justifyContent:"flex-end", marginTop:"30px"}}>
                     <Button style={{background:"white", border:"1px solid rgba(0, 0, 0, 0.20)", color:"#F0540C"}} variant="contained" sx={{borderRadius:"25px", padding:"20px 40px", height:"0"}}>Back</Button>
-                    <Button style={{background:"#F0540C", marginLeft:"20px"}} variant="contained" sx={{borderRadius:"25px", padding:"20px 40px",marginBottom:"20px", height:"0"}}>Next</Button>
+                    <Button type="submit" style={{background:"#F0540C", marginLeft:"20px"}} variant="contained" sx={{borderRadius:"25px", padding:"20px 40px",marginBottom:"20px", height:"0"}}>Next</Button>
                 </div>
             </div>
         </div>

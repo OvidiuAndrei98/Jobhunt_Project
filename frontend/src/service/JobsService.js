@@ -18,6 +18,26 @@ class JobsService {
     return axios.get(`${JOBS_API_URL}/search?searchPhrase=${searchPhrase}`, {headers: AuthHeader()});
   }
 
+  saveJobDraftGettingStarted(jobDraft) {
+    return axios.post(`${JOBS_API_URL}/save-draft-getting-started`, {workingHours: jobDraft}, {headers: AuthHeader()});
+  }
+
+  saveJobDraftTitle(jobDraft) {
+    return axios.post(`${JOBS_API_URL}/save-draft-title/${13}`, jobDraft , {headers: AuthHeader()});
+  }
+
+  saveJobDraftSkills(jobDraft) {
+    return axios.post(`${JOBS_API_URL}/save-draft-skills`, jobDraft , {headers: AuthHeader()});
+  }
+
+  saveJobDraftScope(jobDraft) {
+    return axios.post(`${JOBS_API_URL}/save-draft-scope`, jobDraft , {headers: AuthHeader()});
+  }
+
+  saveJobDraftBudget(jobDraft) {
+    return axios.post(`${JOBS_API_URL}/save-draft-budget`, jobDraft , {headers: AuthHeader()});
+  }
+
 }
 
 export default new JobsService();

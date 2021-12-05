@@ -7,11 +7,30 @@ import React, {useState} from 'react'
 import SkillsApi from '../../../../service/SkillsApi';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { useHistory, useLocation } from 'react-router-dom';
+import JobsService from '../../../../service/JobsService';
+import { duration } from '@mui/material';
 
 const Skills = () => {
     const [skills, setSkills] = useState([])
     const [search, setSearch] = useState('');
     const [savingSkills, setSavingSkills] = useState([]);
+
+    const history = useHistory();
+    const location = useLocation();
+    const jobDraft = location.state?.jobDraft;
+
+
+    const GoToNextStep = () => {
+        if (savingSkills.length > 0) {
+            jobDraft.skills = savingSkills;
+            JobsService.saveJobDraftSkills(jobDraft);
+        history.push({
+            pathname: `/job-post/scope`,
+            state: {jobDraft: {id: jobDraft.id, title: jobDraft.title, category: jobDraft.category, workingHours: jobDraft.workingHours, skills: savingSkills}}
+        })
+    }
+    }
 
     const handleSearch = (event) => {
         setSearch(event.target.value);
@@ -21,7 +40,6 @@ const Skills = () => {
     const handleSelect = (value) => {
         if (value != null ) {
             setSavingSkills([...savingSkills, value])
-            console.log(savingSkills)
         }
     }
 
@@ -97,7 +115,7 @@ const Skills = () => {
                 </div>
                 <div className="flex-row" style={{justifyContent:"flex-end", marginTop:"141px"}}>
                     <Button style={{background:"white", border:"1px solid rgba(0, 0, 0, 0.20)", color:"#F0540C"}} variant="contained" sx={{borderRadius:"25px", padding:"20px 40px", height:"0"}}>Back</Button>
-                    <Button style={{background:"#F0540C", marginLeft:"20px"}} variant="contained" sx={{borderRadius:"25px", padding:"20px 40px",marginBottom:"20px", height:"0"}}>Next</Button>
+                    <Button style={{background:"#F0540C", marginLeft:"20px"}} variant="contained" sx={{borderRadius:"25px", padding:"20px 40px",marginBottom:"20px", height:"0"}} onClick={GoToNextStep}>Next</Button>
                 </div>
             </div>
         </div>
