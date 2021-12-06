@@ -21,6 +21,8 @@ import Skills from '../company/jobs/postJob/Skills';
 import JobScope from '../company/jobs/postJob/JobScope';
 import JobBudget from '../company/jobs/postJob/JobBudget';
 import ReviewJob from '../company/jobs/postJob/ReviewJob';
+import JobPost from '../company/applications/JobPost';
+import ReviewApplications from '../company/applications/ReviewApplications';
 
 
 const Routes = () => {
@@ -53,6 +55,8 @@ const Routes = () => {
                     <PrivateRoute path="/job-post/scope" component={JobScope}/>
                     <PrivateRoute path="/job-post/budget" component={JobBudget}/>
                     <PrivateRoute path="/job-post/review-job" component={ReviewJob}/>
+                    <PrivateRoute path="/applicants/:id/job-details" component={JobPost}/>
+                    <PrivateRoute path="/applicants/:id/applicants" component={ReviewApplications}/>
 
 
                     

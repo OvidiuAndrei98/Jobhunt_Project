@@ -20,6 +20,13 @@ export const MyJobs = () => {
         })
     }
 
+    const goToApplications = (id, job) => {
+        history.push({
+            pathname: `/applicants/${id}/job-details`,
+            state: {job: job}
+        })
+    }
+
     useEffect(() => {
         AppUserFreelancer.getFreelancerById(AuthService.getCurrentUser().id).then(res => {
             setUser(res.data)
@@ -40,12 +47,14 @@ export const MyJobs = () => {
                    <h2>My listings</h2>
                    <span style={{color:"#F0540C", cursor:"pointer"}}>All postings</span>
                 </div>
-                {user.company?.jobs.length != 0 ? (user.company.jobs.map(job => {
+               {user.company?.jobs.length > 0 ? (user.company.jobs.map(job => {
                     return (
-                        <div className="job-box-hover" key={job.id}>
+                        <div className="job-box-hover" key={job.id} onClick={() => goToApplications(job.id, job)}>
                             <div className="align-center-row flex-row-between ">
                                 <h3>{job.title}</h3>
-                                <img src={ViewMore} style={{width:"35px", cursor:"pointer"}} alt="view more" />
+                                <div className="view-more">
+                                <img src={ViewMore} style={{width:"25px", cursor:"pointer"}} alt="view more" />
+                                </div>
                             </div>
                             <div style={{marginTop:"10px"}}>
                                 {/* <span>{job.budget.paymentType.toLowerCase()}</span> */}
