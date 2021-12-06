@@ -30,9 +30,9 @@ const JobCard = ({job}) => {
                     </div>
                 </div>
                 <div className="jobCard__header__info">
-                    <p className="payType">{job.paymentType}</p>
-                    <p className="experienceLevel">{job.experienceLevel}</p>
-                    <p className="budget">Budget: ${job.budget}</p>
+                    <p className="payType">{job.budget.paymentType}</p>
+                    <p className="experienceLevel">{job.scope.experienceLevel}</p>
+                    <p className="budget">Budget: {job.budget.budget}</p>
                     <p className="postDate">Posted 2 hours ago</p>
                 </div>
             </div>

@@ -1462,7 +1462,7 @@ margin-bottom: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
 .align-center-row {
@@ -1485,6 +1485,16 @@ margin-bottom: 20px;
 
 .justify-end {
   float: right;
+}
+
+.job-box-hover {
+  padding: 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.job-box-hover:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 @keyframes floating{from{-webkit-transform:rotate(0deg) translate(-10px) rotate(0deg);transform:rotate(0deg) translate(-10px) rotate(0deg)}to{-webkit-transform:rotate(360deg) translate(-10px) rotate(-360deg);transform:rotate(360deg) translate(-10px) rotate(-360deg)}}

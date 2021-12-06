@@ -38,6 +38,10 @@ class JobsService {
     return axios.post(`${JOBS_API_URL}/save-draft-budget`, jobDraft , {headers: AuthHeader()});
   }
 
+  postJob(job, id) {
+    return axios.post(`${JOBS_API_URL}/post/${id}`, job, {headers: AuthHeader()});
+  }
+
 }
 
 export default new JobsService();

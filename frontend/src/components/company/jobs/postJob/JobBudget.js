@@ -25,6 +25,7 @@ const JobBudget = () => {
     const history = useHistory();
     const location = useLocation();
     const jobDraft = location.state?.jobDraft;
+    const user = location.state?.user;
 
     const theme = createTheme({
         palette: {
@@ -61,11 +62,11 @@ const JobBudget = () => {
         <Navbar />
         <form noValidate onSubmit={
             handleSubmit((data) => {
-                jobDraft.budget = {paymentType: selectedValue.toUpperCase(), budget: `$${data.budget_from}-$${data.budget_to}` };
+                jobDraft.budget = {paymentType: selectedValue.toUpperCase(), budget: selectedValue === "hourly" ? `$${data.budget_from}-$${data.budget_to}/hr` : `$${data.budget}` };
                 JobsService.saveJobDraftBudget(jobDraft);
                 history.push({
                     pathname: `/job-post/review-job`,
-                    state: {jobDraft: jobDraft}
+                    state: {jobDraft: jobDraft, user: user}
                 })
                 })
             }>
@@ -146,8 +147,8 @@ const JobBudget = () => {
                 ) : (
                     <div className="budget-box">
                         <p className="title-paragraph">Maximum project budget (USD)</p>
-                        <TextField className={classes.root} id="total" label="$" variant="outlined" size="small" sx={{ minWidth: "10%", marginTop:"25px", marginBottom:"18px"}}
-                        {...register("total", {required: true})} />
+                        <TextField className={classes.root} id="budget" label="$" variant="outlined" size="small" sx={{ minWidth: "10%", marginTop:"25px", marginBottom:"18px"}}
+                        {...register("budget", {required: true})} />
                     </div>
                 ) }
                 <div className="flex-row" style={{justifyContent:"flex-end", marginTop:"30px"}}>

@@ -19,6 +19,7 @@ const Skills = () => {
     const history = useHistory();
     const location = useLocation();
     const jobDraft = location.state?.jobDraft;
+    const user = location.state?.user;
 
 
     const GoToNextStep = () => {
@@ -27,7 +28,7 @@ const Skills = () => {
             JobsService.saveJobDraftSkills(jobDraft);
         history.push({
             pathname: `/job-post/scope`,
-            state: {jobDraft: {id: jobDraft.id, title: jobDraft.title, category: jobDraft.category, workingHours: jobDraft.workingHours, skills: savingSkills}}
+            state: {jobDraft: {id: jobDraft.id, title: jobDraft.title, category: jobDraft.category, workingHours: jobDraft.workingHours, skills: savingSkills}, user: user}
         })
     }
     }

@@ -23,6 +23,7 @@ const JobTitle = () => {
     const history = useHistory();
     const location = useLocation();
     const jobDraft = location.state?.jobDraft;
+    const user = location.state?.user;
 
     const theme = createTheme({
         palette: {
@@ -57,7 +58,7 @@ const JobTitle = () => {
                 JobsService.saveJobDraftTitle({id: id, title: data.title, category: value, workingHours: jobDraft?.workingHours});
                 history.push({
                     pathname: `/job-post/skills`,
-                    state: {jobDraft: {id: id, title: data.title, category: value, workingHours: jobDraft.workingHours}}
+                    state: {jobDraft: {id: id, title: data.title, category: value, workingHours: jobDraft.workingHours}, user: user}
                 })
                 })
             }>

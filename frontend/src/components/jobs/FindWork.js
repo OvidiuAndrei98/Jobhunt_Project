@@ -124,8 +124,8 @@ const FindWork = () => {
                                         <MenuItem value="undefined">
                                         <em>None</em>
                                         </MenuItem>
-                                        <MenuItem value={"Hourly"}>Hourly</MenuItem>
-                                        <MenuItem value={"Fixed-Price"}>Fixed Price</MenuItem>
+                                        <MenuItem value={"HOURLY"}>Hourly</MenuItem>
+                                        <MenuItem value={"BUDGET"}>Fixed Price</MenuItem>
                                     </TextField>
                                 </FormControl>
                             </div>

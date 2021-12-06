@@ -5,13 +5,15 @@ import Button from '@mui/material/Button';
 import { useForm } from 'react-hook-form';
 import { makeStyles } from '@mui/styles';
 import TextField from "@mui/material/TextField";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import Edit from '../../../../assets/Edit.png'
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import EditSkillsModalReview from './modals/EditSkillsModalReview';
 import EditCategoryModal from './modals/EditCategoryModal';
 import EditScopeModal from './modals/EditScopeModal';
+import EditBudgetModal from './modals/EditBudgetModal';
+import JobsService from '../../../../service/JobsService';
 
 const ReviewJob = () => {
     const { register, handleSubmit, formState: {errors} } = useForm();
@@ -22,7 +24,9 @@ const ReviewJob = () => {
     const [savingScope, setSavingScope] = useState({});
 
     const location = useLocation();
+    const history = useHistory();
     const jobDraft = location.state?.jobDraft;
+    const user = location.state?.user;
 
     const handleOpenModal = (content) => {  
         setModalContent(content)
@@ -80,11 +84,6 @@ const ReviewJob = () => {
     return (
         <>
         <Navbar />
-        <form noValidate onSubmit={
-            handleSubmit((data) => {
-              
-                })
-            }>
         <Modal
             open={open}
             onClose={handleClose}
@@ -95,6 +94,15 @@ const ReviewJob = () => {
                 {modalContent}
             </Box>
         </Modal>
+        <form noValidate onSubmit={
+            handleSubmit((data) => {
+                    jobDraft.location = data.location;
+                    jobDraft.description = data.description;
+                    JobsService.postJob(jobDraft, user.id);
+                    history.push("/jobs");
+
+                })
+            }>
         <div className="apply-container mtop-40 br5">
             <div className="job-box flex-row-between align-center-row ">
                 <p style={{fontSize:"35px", fontWeight:"530"}}>Now just finish and review your job post.</p>
@@ -133,9 +141,14 @@ const ReviewJob = () => {
                 </div>
                 <p style={{fontSize:"20px", fontWeight:"500", marginBottom:"15px"}}>Budget</p>
                 <div className="align-center-row mbottom">
-                    <p>{jobDraft.budget.budget}/hr</p>
-                    <img src={Edit} style={{marginLeft:"20px", cursor:"pointer"}} />
+                    <p>{jobDraft.budget.budget}</p>
+                    <img src={Edit} style={{marginLeft:"20px", cursor:"pointer"}} onClick={() => handleOpenModal(<EditBudgetModal closeModal = {open => setOpen(open)} saveBudget = {(budget) => jobDraft.budget = budget.budget} budget={jobDraft.budget}/>)} />
                 </div>
+            </div>
+            <div className="job-box">
+                <p style={{fontSize:"20px", fontWeight:"500"}}>Location</p>
+                <TextField className={classes.title} id="location" label="Location" variant="outlined" size="small" sx={{ minWidth: "10%", marginTop:"25px", marginBottom:"18px"}}
+                {...register("location", {required: true})} /> 
             </div>
             <div className="job-box flex-row-between">
                 <Button style={{background:"white", border:"1px solid rgba(0, 0, 0, 0.20)", color:"#F0540C"}} variant="contained" sx={{borderRadius:"25px", padding:"10px 40px", height:"0"}}>Back</Button>

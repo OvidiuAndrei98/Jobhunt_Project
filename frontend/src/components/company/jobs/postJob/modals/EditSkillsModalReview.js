@@ -17,7 +17,7 @@ const EditSkillsModalReview = (props) => {
 
     const handleSelect = (value) => {
         if (value != null ) {
-            setSavingSkills([...props.skills,...savingSkills, value])
+            setSavingSkills([...savingSkills, value])
         }
     }
 

@@ -5,14 +5,19 @@ import Button from '@mui/material/Button';
 import AppUserFreelancer from '../../../service/AppUserFreelancer';
 import AuthService from '../../../service/AuthService';
 import {useHistory} from 'react-router-dom';
+import ViewMore from '../../../assets/View_More.png';
 
 
 export const MyJobs = () => {
     const [user, setUser] = useState([])
     const history = useHistory();    
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
     const GoToPosting = () => { 
-        history.push('/job-post/getting-started')
+        history.push({
+            pathname: '/job-post/getting-started',
+            state: {user: user}
+        })
     }
 
     useEffect(() => {
@@ -27,7 +32,7 @@ export const MyJobs = () => {
                 <h2>{user.company?.companyName}</h2>
                 <div>
                 <Button style={{background:"white", border:"1px solid rgba(0, 0, 0, 0.20)", color:"#F0540C", marginRight:"10px"}} variant="contained" sx={{borderRadius:"25px", padding:"6px 30px", height:"0"}}>Browse Projects</Button>
-                <Button type="submit" style={{background:"#F0540C"}} variant="contained" sx={{borderRadius:"25px", padding:"6px 20px"}}>Post job</Button>
+                <Button type="submit" style={{background:"#F0540C"}} variant="contained" sx={{borderRadius:"25px", padding:"6px 20px"}} onClick={GoToPosting}>Post job</Button>
                 </div>
             </div>
             <div className="My-jobs-container">
@@ -35,11 +40,25 @@ export const MyJobs = () => {
                    <h2>My listings</h2>
                    <span style={{color:"#F0540C", cursor:"pointer"}}>All postings</span>
                 </div>
-                <div className="job-box align-center">
+                {user.company?.jobs.length != 0 ? (user.company.jobs.map(job => {
+                    return (
+                        <div className="job-box-hover" key={job.id}>
+                            <div className="align-center-row flex-row-between ">
+                                <h3>{job.title}</h3>
+                                <img src={ViewMore} style={{width:"35px", cursor:"pointer"}} alt="view more" />
+                            </div>
+                            <div style={{marginTop:"10px"}}>
+                                {/* <span>{job.budget.paymentType.toLowerCase()}</span> */}
+                                {/* <span>{job.category}</span> */}
+                            </div>
+                        </div>
+                    )
+                })) 
+                : ( <div className="job-box align-center">
                     <Button style={{background:"#F0540C",marginBottom:"10px"}} variant="contained" sx={{borderRadius:"25px", padding:"6px 20px"}} onClick={GoToPosting}>Post job</Button>
                    <p>Not ready to post? Try a <span style={{color:"#F0540C", cursor:"pointer"}}>predefined project</span>,</p>
                     <p>or build a list of newly <span style={{color:"#F0540C", cursor:"pointer"}}>discovered talent.</span></p>
-                </div>
+                </div>)}
             </div>
             <div className="My-jobs-container">
                 <div className="job-box flex-row-between">

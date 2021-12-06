@@ -6,17 +6,19 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Time from '../../../../assets/Time.png'
 import Calendar from '../../../../assets/Calendar.png'
 import Button from '@mui/material/Button';
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import JobsService from '../../../../service/JobsService';
 
 
-const GettingStarted = ({skills}) => {
+const GettingStarted = () => {
     const [selectedValue, setSelectedValue] = React.useState('a');
     const handleChange = (event) => {
         setSelectedValue(event);
     };
 
     const history = useHistory();
+    const location = useLocation();
+    const user = location.state?.user;
 
     const GoToNextStep = () => {
         if (selectedValue != 'a') {
@@ -25,7 +27,7 @@ const GettingStarted = ({skills}) => {
                 history.push(`/job-post/title/${res.data}`);
                 history.push({
                     pathname: `/job-post/title/${res.data}`,
-                    state: {jobDraft: {workingHours: selectedValue}}
+                    state: {jobDraft: {workingHours: selectedValue}, user: user}
                 })
             });
         }

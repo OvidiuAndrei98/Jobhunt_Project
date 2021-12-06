@@ -27,6 +27,7 @@ const JobScope = () => {
     const history = useHistory();
     const location = useLocation();
     const jobDraft = location.state?.jobDraft;
+    const user = location.state?.user;
 
     const theme = createTheme({
         palette: {
@@ -40,7 +41,7 @@ const JobScope = () => {
             JobsService.saveJobDraftScope(jobDraft);
             history.push({
                 pathname: `/job-post/budget`,
-                state: {jobDraft: jobDraft}
+                state: {jobDraft: jobDraft, user: user}
             })
         } 
     }
