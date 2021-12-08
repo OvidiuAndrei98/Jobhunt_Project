@@ -5,21 +5,19 @@ import JobCard from './JobCard'
 import Slider from '../../assets/Slider.png'
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-// import Select from '@mui/material/Select';
 import { makeStyles } from '@mui/styles';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Footer from '../navigation/Footer'
 import JobsService from '../../service/JobsService'
-import { useHistory } from 'react-router-dom'
-
-
+import { useHistory, useLocation } from 'react-router-dom'
 
 const FindWork = () => {
     const [jobs, setJobs] = useState([]);
     const [search, setSearch] = useState('');
     const [filterInputs, setFilterInputs] = useState([])
     const history = useHistory();
+    const location = useLocation();
 
     const handleCategory = (event) => {
         setFilterInputs({...filterInputs, "category": event.target.value})
@@ -58,6 +56,7 @@ const FindWork = () => {
 
     useEffect(() => {
         JobsService.getAllJobs().then(res => {  
+            console.log(res)
             setJobs(res.data)}).catch(err => {history.push('/user-error')});
     },[])
 
@@ -79,6 +78,7 @@ const FindWork = () => {
     return (
         <>
             <Navbar />
+                
             <div className="container-fw">
                 <div className="left-collumn">
                     <h3 style={{marginBottom:"15px"}}>Find Work</h3>

@@ -7,12 +7,35 @@ import TextField from "@mui/material/TextField";
 import {useForm} from 'react-hook-form';
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
+import AuthService from '../../service/AuthService';
+import ApplicationsService from '../../service/ApplicationsService';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
 const Apply = () => {
     const location = useLocation();
     const history = useHistory();
     const job = location.state.job;
+    const user = AuthService.getCurrentUser();
     const { register, handleSubmit, formState: {errors} } = useForm();
+    const [bid, setBid] = React.useState(0);
+    const [alert, setAlert] = React.useState(false);
+    const [error, setError] = React.useState(false);
+    const vertical = 'top';
+    const horizontal = 'center';
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setAlert(false);
+      };
+   
 
     const goToJob = () => {
         history.push({
@@ -20,6 +43,12 @@ const Apply = () => {
             state: {job: job}
         })
     }
+
+    const handleBid = (e) => {
+       setBid(e.target.value - (0.2 * e.target.value));
+    }
+
+    console.log(bid);
 
     const redirectToJobs = () => {
         history.push(`/jobs`)
@@ -43,9 +72,36 @@ const Apply = () => {
     return (
     <div>
         <Navbar />
+        <Snackbar anchorOrigin={{vertical, horizontal}} open={alert} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                You have successfully applied for this job!
+            </Alert>
+        </Snackbar>
+        <Snackbar anchorOrigin={{vertical, horizontal}} open={error} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                Job application failed!
+            </Alert>
+        </Snackbar>
         <h1 style={{display:"inline-block", marginLeft:"22%", marginTop:"30px", marginBottom:"30px"}}>Submit an application</h1>
         <form noValidate onSubmit={
             handleSubmit((data) => {
+                const application = {
+                    terms: {bid: data.bid, fees: (20 / 100) * data.bid, receive: data.bid - (20 / 100) * data.bid},
+                    additionalDetails: {coverLetter: data.coverLetter},
+                }
+                    ApplicationsService.apply(application, job.id, user.id).then(() => {
+                        setAlert(true);
+                        setTimeout(() => {
+                            history.push({
+                            pathname: `/work`,
+                        });}, 3000);
+                    }).catch(() => {
+                        setError(true);
+                        setTimeout(() => {
+                            history.push({
+                            pathname: `/work`,
+                        });}, 3000);
+                    })
                 }
             )
         }>
@@ -72,7 +128,7 @@ const Apply = () => {
         </div>
         <div className="apply-container">
             <div className="job-box flex-row-between">
-                <h2>Job details</h2>
+                <h2>Terms</h2>
                 <p>Client's budget: $90.00 USD</p>
             </div>
             <div className="job-box">
@@ -83,7 +139,7 @@ const Apply = () => {
                         <p style={{fontSize:"16px", color:"rgba(0, 0, 0, 0.80)"}}>Total amount the client will see on your proposal</p>
                     </div>
                     <div>
-                        <TextField className={classes.root} id="bid" label="$" variant="outlined" size="small" sx={{ minWidth: "100%" }}
+                        <TextField className={classes.root} id="bid" label="$" onInput={handleBid} variant="outlined" size="small" sx={{ minWidth: "100%" }}
                         {...register("bid", {required: true})}/>
                     </div>
                 </div>
@@ -98,7 +154,7 @@ const Apply = () => {
                     <p>The estimated amount you'll receive after service fees</p>
                 </div>
                 <div>
-                    <TextField className={classes.root} id="total" label="$" variant="outlined" size="small" sx={{ minWidth: "100%" }}
+                    <TextField className={classes.root} id="total" value={`${bid}`} label="$" variant="outlined" size="small" sx={{ minWidth: "100%" }}
                     {...register("total", {required: true})}/>
                 </div>
             </div>

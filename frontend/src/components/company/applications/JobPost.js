@@ -14,7 +14,7 @@ const JobPost = () => {
 
     const goToReview = () => {
         history.push({
-            pathname: `applicants/${job.id}/applicants`,
+            pathname: `/applicants/${job.id}/applicants`,
             state: {
                 job: job
             }
@@ -27,7 +27,7 @@ const JobPost = () => {
             <h2>{job.title}</h2>
         </div>
         <div className="breadcrumb-applications">
-            <div className="applications-menu-active"><div style={{alignSelf:"center", zIndex:"99", color:"white", textTransform:"uppercase"}}><span>VIEW JOB POST</span></div></div>
+            <div className="applications-menu-active"><div className="mask" style={{alignSelf:"center", zIndex:"99", color:"white", textTransform:"uppercase"}}><span>VIEW JOB POST</span></div></div>
             <div className="applications-menu" onClick={goToReview}><div style={{alignSelf:"center", zIndex:"99", color:"black", textTransform:"uppercase"}}><span>Review proposals</span></div></div>
             <div className="applications-menu"><div style={{alignSelf:"center", zIndex:"99", color:"black", textTransform:"uppercase"}}><span>Hire</span></div></div>
             <div className="applications-menu">4</div>
