@@ -3,9 +3,12 @@ package com.lancefy.backend.model.jobs;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +18,11 @@ import java.util.List;
 @JsonIgnoreProperties
 @Entity
 @Data
-public class Job {
-    //scope
-    //period
+public class JobDraft {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    //    @Column(nullable = false)
+//    @Column(nullable = false)
     private String title;
     private String category;
     @OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
@@ -36,7 +37,7 @@ public class Job {
     @OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private JobScope scope;
 
-    public Job(String title, String category, JobBudget budget, String workingHours, LocalDateTime date, String description, List<String> skills, String location, JobScope scope) {
+    public JobDraft(String title, String category, JobBudget budget, String workingHours, LocalDateTime date, String description, List<String> skills, String location, JobScope scope) {
         this.title = title;
         this.category = category;
         this.budget = budget;
@@ -47,6 +48,5 @@ public class Job {
         this.location = location;
         this.scope = scope;
     }
+
 }
-
-

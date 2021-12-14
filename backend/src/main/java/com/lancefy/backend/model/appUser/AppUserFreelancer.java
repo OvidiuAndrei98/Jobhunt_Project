@@ -27,6 +27,7 @@ public class AppUserFreelancer {
     private List<Language> languages;
     @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @Column(name = "education")
+    @OrderBy("id ASC")
     private List<Education> education;
     private String title;
     private String selfDescription;
@@ -42,9 +43,10 @@ public class AppUserFreelancer {
     private String password;
     @ElementCollection
     private Set<UserRole> roles;
+    @OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    private Company company;
 
-    public AppUserFreelancer(String profilePic, String lastName, String firstName, String availability, List<Language> languages, List<Education> education, String title, String selfDescription, List<String> skills, List<Certification> certifications, Address address, String phoneNumber, String email, String password, Set<UserRole> roles) {
-        this.profilePic = profilePic;
+    public AppUserFreelancer(String lastName, String firstName, String availability, List<Language> languages, List<Education> education, String title, String selfDescription, List<String> skills, List<Certification> certifications, Address address, String phoneNumber, String email, String password, Set<UserRole> roles) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.availability = availability;

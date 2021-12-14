@@ -1,6 +1,8 @@
 package com.lancefy.backend.controller;
 
 import com.lancefy.backend.model.appUser.AppUserFreelancer;
+import com.lancefy.backend.model.appUser.Company;
+import com.lancefy.backend.model.appUser.UserRole;
 import com.lancefy.backend.model.authentication.LoginRequestDto;
 import com.lancefy.backend.model.authentication.LoginResponseDto;
 import com.lancefy.backend.security.JwtTokenService;
@@ -15,13 +17,11 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -31,6 +31,7 @@ public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenService jwtTokenService;
     private final AppUserFreelancerService appUserFreelancerService;
+    private String password;
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
@@ -52,6 +53,22 @@ public class AuthenticationController {
             }
         }
 
+    @PostMapping("/switch-account/company/{id}")
+    public ResponseEntity<?> switchCompany(@PathVariable Long id) {
+        AppUserFreelancer currentUser = appUserFreelancerService.findById(id);
+        String token = jwtTokenService.createToken(currentUser.getEmail(), List.of("ROLE_COMPANY"));
+        return ResponseEntity.ok( new LoginResponseDto(currentUser.getId(), List.of("ROLE_COMPANY"), token, currentUser.getEmail()));
+
+    }
+
+    @PostMapping("/switch-account/freelancer/{id}")
+    public ResponseEntity<?> switchFreelancer(@PathVariable Long id) {
+        AppUserFreelancer currentUser = appUserFreelancerService.findById(id);
+        String token = jwtTokenService.createToken(currentUser.getEmail(), List.of("ROLE_FREELANCER"));
+        return ResponseEntity.ok( new LoginResponseDto(currentUser.getId(), List.of("ROLE_FREELANCER"), token, currentUser.getEmail()));
+
+    }
+
     @PostMapping("/register-freelancer")
     public ResponseEntity<?> registerUser(@RequestBody @Valid AppUserFreelancer appUserFreelancer) {
         if (appUserFreelancerService.existsByEmail(appUserFreelancer.getEmail())) {
@@ -61,6 +78,24 @@ public class AuthenticationController {
         appUserFreelancerService.addUser(appUserFreelancer);
         return ResponseEntity.ok("User has been registered successfully.");
     }
+
+    @PostMapping("/register-company/{id}")
+    public ResponseEntity<?> registerCompany(@RequestBody @Valid Company company, @PathVariable Long id) {
+        AppUserFreelancer currentUser =  appUserFreelancerService.findById(id);
+//        if (appUserFreelancerService.existsByEmail(appUserFreelancer.getEmail())) {
+//            return ResponseEntity.badRequest().body("An account with this email already exists.");
+//        }
+        company.setCompanyOwner("" + currentUser.getFirstName() + " " +  currentUser.getLastName());
+        company.setCompanyPhone(currentUser.getPhoneNumber());
+        company.setAddress(currentUser.getAddress());
+        Set<UserRole> roles =  currentUser.getRoles();
+        roles.add(UserRole.ROLE_COMPANY);
+        currentUser.setCompany(company);
+        appUserFreelancerService.addUser(currentUser);
+        return ResponseEntity.ok("Company account has been created successfully.");
+    }
+
+
 
     public LoginResponseDto getAccountType(String email, String token, List<String> roles) {
         LoginResponseDto loginResponseDto;
@@ -75,7 +110,7 @@ public class AuthenticationController {
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, data.getPassword());
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
-
+        password = authenticationToken.getCredentials().toString();
         List<String> roles = authentication.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority)
