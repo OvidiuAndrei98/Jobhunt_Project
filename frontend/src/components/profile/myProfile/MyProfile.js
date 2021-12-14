@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import Footer from '../../navigation/Footer'
 import Navbar from '../../navigation/Navbar'
 import SideNav from '../../navigation/SideNav'
-import ProfilePhoto from '../../../assets/ProfilePhoto.png'
 import Edit from '../../../assets/Edit.png'
 import Add from '../../../assets/Add.png'
 import AppUserFreelancer from '../../../service/AppUserFreelancer'
@@ -18,9 +17,7 @@ import EditSkillsModal from './EditSkillsModal'
 import AddCertificationModal from './AddCertificationModal'
 import { useHistory } from 'react-router-dom'
 import EditProfilePhotoModal from './EditProfilePhotoModal'
-import axios from 'axios'
-import AuthHeader from '../../../service/AuthHeader'
-import { set } from 'react-hook-form'
+import DefaultPicture from '../../../assets/No-photo.png'
 
 const MyProfile = () => {
     const [user, setUser] = useState([])
@@ -88,7 +85,7 @@ const MyProfile = () => {
                 <SideNav /> 
                 <div className="center-container">
                     <div className="profile-upper">
-                        <img src={`http://localhost:8080/user/get-picture/${user.id}`} onClick={() => handleOpenModal(<EditProfilePhotoModal closeModal = {open => setOpen(open)} />)}/>
+                        <img src={user.profilePic ? `http://localhost:8080/user/get-picture/${user.id}` :  DefaultPicture} onClick={() => handleOpenModal(<EditProfilePhotoModal closeModal = {open => setOpen(open)} />)}/>
                         <p>{user.firstName?.split(" ")[0]} {user.lastName}</p>
                         <p>{user.address?.city}, {user.address?.country}</p>
                     </div>

@@ -37,6 +37,12 @@ const ApplicantCard = ({applicant}) => {
         })
     }
 
+    const goToMessages = () => {
+        history.push({
+            pathname: `/user/${applicant.id}}/message`,
+            state: {recipient: applicant.appUserFreelancer}})
+      }
+
     console.log(applicant)
     return (
         <div className="jobCard mbottom-0">
@@ -49,7 +55,7 @@ const ApplicantCard = ({applicant}) => {
                         <div className="flex-row-between">
                             <p className="jobCard__header__title" style={{fontSize:"20px"}}>{`${applicant.appUserFreelancer.firstName} ${applicant.appUserFreelancer.lastName}`}</p>
                             <div>
-                                <Button  style={{background:"white", border:"1px solid rgba(0, 0, 0, 0.20)", color:"#F0540C"}} variant="contained" sx={{borderRadius:"25px", padding:"3px 40px"}}>Message</Button>
+                                <Button  style={{background:"white", border:"1px solid rgba(0, 0, 0, 0.20)", color:"#F0540C"}} variant="contained" sx={{borderRadius:"25px", padding:"3px 40px"}} onClick={goToMessages}>Message</Button>
                                 <Button onClick={goToApplicant} type="submit" style={{background:"#F0540C", zIndex:"99"}} variant="contained" sx={{borderRadius:"25px", padding:"3px 40px", marginLeft:"30px"}}>Hire</Button>
                             </div>
                         </div>

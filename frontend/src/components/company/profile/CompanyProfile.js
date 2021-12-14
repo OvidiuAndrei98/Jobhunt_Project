@@ -31,7 +31,7 @@ export const CompanyProfile = () => {
                         </div>
                         <div className="job-box">
                             <div className="profile-upper">
-                            <img src={`http://localhost:8080/user/get-picture/${user.id}`} />
+                            <img src={user.profilePic ? `http://localhost:8080/user/get-picture/${user.id}` :  DefaultPicture} />
                             </div>
                         </div>
                         <div className="job-box">

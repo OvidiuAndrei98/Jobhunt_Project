@@ -30,11 +30,17 @@ const ReviewApplications = () => {
             <div className="applications-menu">4</div>
         </div>
         <div className="job-container flex-row"> 
-                {applicants.map(applicant => {
-                    return (
-                    <ApplicantCard applicant={applicant}/>
-                    )
-                })}
+        {applicants.length === 0 ? 
+        (<div className="contact-inf-container" style={{background:"white", width:"100%", minHeight:"43.1vh", alignItems:"center", justifyContent:"center"}}>
+            <h1>You don't have any applications for now.</h1>
+        </div>) 
+        : 
+        (applicants.map(applicant => {
+            return (
+            <ApplicantCard applicant={applicant}/>
+            )
+        }))}
+                
         </div>
         <Footer />
         </>

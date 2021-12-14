@@ -39,6 +39,12 @@ const Application = () => {
           },
       }));
 
+      const goToMessages = () => {
+        history.push({
+            pathname: `/user/43/message`,
+            state: {recipient: applicant.appUserFreelancer}})
+      }
+
       const classes = useStyles();
     return (
         <>

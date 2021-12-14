@@ -6,6 +6,7 @@ import Settings from '../../assets/Settings-popUp.png'
 import AppUserFreelancer from '../../service/AppUserFreelancer'
 import AuthService from '../../service/AuthService'
 import { useLocation, useHistory } from 'react-router-dom';
+import DefaultPicture from '../../assets/No-photo.png'
 
 
 const Navbar = () => {
@@ -84,10 +85,10 @@ const Navbar = () => {
                             <li className={splitLocation[1] === "jobs" ? "active-link" : ""}><NavLink to="/work">Find Work</NavLink></li>,
                             <li><NavLink to="/my-jobs">My Jobs</NavLink></li>,
                             <li><NavLink to="/messages">Messages</NavLink></li>,
-                            <li><img src={`http://localhost:8080/user/get-picture/${user.id}`} className="profile-photo" onClick={handlePopup} />
+                            <li><img src={accountType.profilePic ? `http://localhost:8080/user/get-picture/${user.id}` :  DefaultPicture} className="profile-photo" onClick={handlePopup} />
                             {popUp ? (
                         <ul className="profile-dropdown">   
-                            <li><div className="profile-pop-up" onClick={goToProfile}><img src={`http://localhost:8080/user/get-picture/${user.id}`} className="profile-photo-pop-up" />{accountType.firstName}</div></li>
+                            <li><div className="profile-pop-up" onClick={goToProfile}><img src={accountType.profilePic ? `http://localhost:8080/user/get-picture/${user.id}` :  DefaultPicture} className="profile-photo-pop-up" />{accountType.firstName}</div></li>
                             {accountType.company && (<li><div className="profile-pop-up" onClick={goToCompany}><img src={DefaultPic} className="profile-photo-pop-up" /><div style={{display:'flex', flexDirection:"column"}}>{accountType.company.companyName} <p style={{fontSize:"12px"}}>Company</p></div></div></li>)}    
                             <li><div className="profile-pop-up" onClick={goToSettings}><img src={Settings}/>Settings</div></li>    
                             <li><div className="profile-pop-up" onClick={logout}><img src={Settings}/>Logout</div></li>
@@ -106,7 +107,7 @@ const Navbar = () => {
                     <li><img src={DefaultPic} className="profile-photo" onClick={handlePopup} />
                             {popUp ? (
                         <ul className="profile-dropdown">   
-                            <li><div className="profile-pop-up" onClick={goToProfile}><img src={`http://localhost:8080/user/get-picture/${user.id}`} className="profile-photo-pop-up" />{accountType.firstName}</div></li>
+                            <li><div className="profile-pop-up" onClick={goToProfile}><img src={accountType.profilePic ? `http://localhost:8080/user/get-picture/${user.id}` :  DefaultPicture} className="profile-photo-pop-up" />{accountType.firstName}</div></li>
                             {accountType.company && (<li><div className="profile-pop-up" onClick={goToCompany}><img src={DefaultPic} className="profile-photo-pop-up" /> {accountType.company.companyName}</div></li>)}    
                             <li><div className="profile-pop-up" onClick={goToSettingsCompany}><img src={Settings}/>Settings</div></li>    
                             <li><div className="profile-pop-up" onClick={logout}><img src={Settings}/>Logout</div></li>

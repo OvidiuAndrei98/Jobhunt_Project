@@ -99,7 +99,10 @@ const ReviewJob = () => {
                     jobDraft.location = data.location;
                     jobDraft.description = data.description;
                     JobsService.postJob(jobDraft, user.id);
-                    history.push("/jobs");
+                    history.push({
+                        pathname:"/jobs",
+                        state: {alert: true}
+                    });
 
                 })
             }>

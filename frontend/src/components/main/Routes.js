@@ -25,6 +25,7 @@ import JobPost from '../company/applications/JobPost';
 import ReviewApplications from '../company/applications/ReviewApplications';
 import Application from '../company/applications/Application';
 import UserProfile from '../profile/UserProfile';
+import Chat from '../chat/Chat';
 
 
 const Routes = () => {
@@ -61,6 +62,7 @@ const Routes = () => {
                     <PrivateRoute path="/applicants/:id/applicants" component={ReviewApplications}/>
                     <PrivateRoute path="/applicants/:id/application/:id" component={Application}/>
                     <PrivateRoute path="/user/:id/profile" component={UserProfile}/>
+                    <PrivateRoute path="/user/:id/message" component={Chat}/>
                     
                 </Switch>
             </Router>

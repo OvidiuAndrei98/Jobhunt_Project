@@ -4,14 +4,26 @@ import Navbar from '../../navigation/Navbar'
 import Button from '@mui/material/Button';
 import AppUserFreelancer from '../../../service/AppUserFreelancer';
 import AuthService from '../../../service/AuthService';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import ViewMore from '../../../assets/View_More.png';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
 
 export const MyJobs = () => {
     const [user, setUser] = useState([])
     const history = useHistory();    
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const location = useLocation();
+    const [alert, setAlert] = React.useState(location.state?.alert);
+    const [error, setError] = React.useState(false);
+    const vertical = 'top';
+    const horizontal = 'center';
 
     const GoToPosting = () => { 
         history.push({
@@ -27,14 +39,34 @@ export const MyJobs = () => {
         })
     }
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setAlert(false);
+      };
+
     useEffect(() => {
         AppUserFreelancer.getFreelancerById(AuthService.getCurrentUser().id).then(res => {
             setUser(res.data)
         })
     }, [])
+
+    
     return (
         <div>
             <Navbar />
+            <Snackbar anchorOrigin={{vertical, horizontal}} open={alert} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Job posted successfully!
+                </Alert>
+            </Snackbar>
+            <Snackbar anchorOrigin={{vertical, horizontal}} open={error} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    Job application failed!
+                </Alert>
+            </Snackbar>
             <div className="info-container">
                 <h2>{user.company?.companyName}</h2>
                 <div>
