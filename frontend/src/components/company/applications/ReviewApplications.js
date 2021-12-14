@@ -29,7 +29,7 @@ const ReviewApplications = () => {
             <div className="applications-menu"><div style={{alignSelf:"center", zIndex:"99", color:"black", textTransform:"uppercase"}}><span>Hire</span></div></div>
             <div className="applications-menu">4</div>
         </div>
-        <div className="job-container"> 
+        <div className="job-container flex-row"> 
                 {applicants.map(applicant => {
                     return (
                     <ApplicantCard applicant={applicant}/>

@@ -58,7 +58,21 @@ class AppUserFreelancer {
         return axios.post(`${this.url}/update-description/${id}`, description, {headers: AuthHeader()});
     };
 
-    
+    editProfilePhoto(photo, id) {
+        return axios.post(
+            `${this.url}/${id}/update-picture/`,
+                photo,
+                {headers : {
+                    'Content-Type': 'multipart/form-data',
+                    ...AuthHeader()
+                },
+            }
+        );
+    };
+
+    getProfilePhoto(id) {   
+        return axios.get(`${this.url}/10/get-picture`, {headers: AuthHeader()});
+    };
     
 
     

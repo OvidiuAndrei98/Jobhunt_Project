@@ -33,8 +33,11 @@ const CreateCompanyAccount = () => {
             <form noValidate onSubmit={
             handleSubmit((data) => {
                 AuthService.createCompanyAccount(data, AuthService.getCurrentUser().id)
-                history.push('/user/contact')
-                window.location.reload()
+                history.push({
+                    pathname:'/user/contact',
+                    state: {alert: true}
+                })
+                // window.location.reload()
                 }
                 )
             }>

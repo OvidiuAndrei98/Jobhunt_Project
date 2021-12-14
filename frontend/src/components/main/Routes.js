@@ -23,6 +23,8 @@ import JobBudget from '../company/jobs/postJob/JobBudget';
 import ReviewJob from '../company/jobs/postJob/ReviewJob';
 import JobPost from '../company/applications/JobPost';
 import ReviewApplications from '../company/applications/ReviewApplications';
+import Application from '../company/applications/Application';
+import UserProfile from '../profile/UserProfile';
 
 
 const Routes = () => {
@@ -57,8 +59,8 @@ const Routes = () => {
                     <PrivateRoute path="/job-post/review-job" component={ReviewJob}/>
                     <PrivateRoute path="/applicants/:id/job-details" component={JobPost}/>
                     <PrivateRoute path="/applicants/:id/applicants" component={ReviewApplications}/>
-
-
+                    <PrivateRoute path="/applicants/:id/application/:id" component={Application}/>
+                    <PrivateRoute path="/user/:id/profile" component={UserProfile}/>
                     
                 </Switch>
             </Router>

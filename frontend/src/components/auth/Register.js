@@ -36,7 +36,7 @@ const Register = () => {
                     {errors.email && <span className="required-field-error-1">Enter a valid name!</span>}
 
                     <input type="text" className="email-input" id="lastName" placeholder="Last Name" 
-                         {...register("firstName", {required: true, minLength: 5, maxLength: 30})}/>
+                         {...register("lastName", {required: true, minLength: 5, maxLength: 30})}/>
                     {errors.email && <span className="required-field-error-1">Enter a valid name!</span>}
                     
                     <input type="text" className="email-input" id="email" placeholder="Email"

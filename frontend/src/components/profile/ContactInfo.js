@@ -7,11 +7,22 @@ import { useEffect, useState } from 'react'
 import AppUserFreelancer from '../../service/AppUserFreelancer'
 import AuthService from '../../service/AuthService'
 import Button from '@mui/material/Button';
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
 const ContactInfo = () => {
     const [user, setUser] = useState([])
     const history = useHistory()
+    const [error, setError] = React.useState(false);
+    const location = useLocation()
+    const [alert, setAlert] = React.useState(location.state?.alert);
+    const vertical = 'top';
+    const horizontal = 'center';
 
     useEffect(() => {
         AppUserFreelancer.getFreelancerById(AuthService.getCurrentUser().id).then(res => {
@@ -23,9 +34,27 @@ const ContactInfo = () => {
         history.push('/company/create-company-account')
     }
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setAlert(false);
+      };
+
     return (
         <div>
             <Navbar />
+            <Snackbar anchorOrigin={{vertical, horizontal}} open={alert} autoHideDuration={3000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                You have successfully created the company account.
+            </Alert>
+        </Snackbar>
+        <Snackbar anchorOrigin={{vertical, horizontal}} open={error} autoHideDuration={3000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                Account creation failed.
+            </Alert>
+        </Snackbar>
             <div className="contact-inf-container">
                 <SideNav /> 
                 <div className="center-container">

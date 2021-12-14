@@ -48,7 +48,6 @@ const Apply = () => {
        setBid(e.target.value - (0.2 * e.target.value));
     }
 
-    console.log(bid);
 
     const redirectToJobs = () => {
         history.push(`/jobs`)
