@@ -80,6 +80,10 @@ class AppUserFreelancer {
         return axios.delete(`${this.url}/${id}`, {headers: AuthHeader()});
     }
 
+    getUserCompany(id) { 
+        return axios.get(`${this.url}/get-company/${id}`, {headers: AuthHeader()});
+    }
+
 }
 
 export default new AppUserFreelancer();

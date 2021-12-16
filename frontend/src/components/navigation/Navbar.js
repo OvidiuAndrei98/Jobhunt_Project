@@ -84,7 +84,7 @@ const Navbar = () => {
                         [
                             <li className={splitLocation[1] === "jobs" ? "active-link" : ""}><NavLink to="/work">Find Work</NavLink></li>,
                             <li><NavLink to="/my-jobs">My Jobs</NavLink></li>,
-                            <li><NavLink to="/messages">Messages</NavLink></li>,
+                            <li><NavLink to="/user/messages">Messages</NavLink></li>,
                             <li><img src={accountType.profilePic ? `http://localhost:8080/user/get-picture/${user.id}` :  DefaultPicture} className="profile-photo" onClick={handlePopup} />
                             {popUp ? (
                         <ul className="profile-dropdown">   
@@ -103,7 +103,7 @@ const Navbar = () => {
                             <li><div className="profile-pop-up"> Post job</div></li>
                         </ul></li>,
                         <li><NavLink to="/">Talents</NavLink></li>,
-                        <li><NavLink to="/">Messages</NavLink></li>,
+                        <li><NavLink to={`/company/${accountType.company?.id}/messages`}>Messages</NavLink></li>,
                     <li><img src={DefaultPic} className="profile-photo" onClick={handlePopup} />
                             {popUp ? (
                         <ul className="profile-dropdown">   

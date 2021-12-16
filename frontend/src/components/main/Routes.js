@@ -26,6 +26,9 @@ import ReviewApplications from '../company/applications/ReviewApplications';
 import Application from '../company/applications/Application';
 import UserProfile from '../profile/UserProfile';
 import Chat from '../chat/Chat';
+import ChatLobby from '../chat/ChatLobby';
+import CompanyChat from '../company/chat/CompanyChat';
+import CompanyChatLobby from '../company/chat/CompanyChatLobby';
 
 
 const Routes = () => {
@@ -62,7 +65,10 @@ const Routes = () => {
                     <PrivateRoute path="/applicants/:id/applicants" component={ReviewApplications}/>
                     <PrivateRoute path="/applicants/:id/application/:id" component={Application}/>
                     <PrivateRoute path="/user/:id/profile" component={UserProfile}/>
-                    <PrivateRoute path="/user/:id/message" component={Chat}/>
+                    <PrivateRoute path="/user/:id/message" component={CompanyChat}/>
+                    <PrivateRoute path="/user/messages" component={ChatLobby}/>
+                    <PrivateRoute path="/company/:id/message" component={Chat}/>
+                    <PrivateRoute path="/company/:id/messages" component={CompanyChatLobby}/>
                     
                 </Switch>
             </Router>

@@ -5,9 +5,11 @@ import {useForm} from 'react-hook-form';
 import {useHistory} from 'react-router-dom';
 import AuthService from '../../service/AuthService';
 
+
 const Login = () => {
     const { register, handleSubmit, formState: {errors} } = useForm();
     const history = useHistory();
+
 
     const eventHandler = () => {
         history.push("/register")
@@ -27,7 +29,7 @@ const Login = () => {
                             AuthService.login(data).then(
                                 res => history.push("/"),
                                 error => console.log(error)
-                            )
+                            );
                         })
                         }>
                 <input
