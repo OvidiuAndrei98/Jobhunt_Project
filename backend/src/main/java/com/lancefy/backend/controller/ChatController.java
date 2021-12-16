@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
-//@CrossOrigin("*")
+@CrossOrigin("*")
 public class ChatController {
     @Autowired private SimpMessagingTemplate simpMessagingTemplate;
     @Autowired private ChatMessageService chatMessageService;
@@ -31,7 +31,9 @@ public class ChatController {
 
         simpMessagingTemplate.convertAndSendToUser(
                 chatMessage.getRecipientId(),"queue/messages",
-                chatMessage
+                new ChatNotification(saved.getId(),
+                        saved.getSenderId(),
+                        saved.getSenderName())
         );
     }
 
@@ -51,10 +53,16 @@ public class ChatController {
                 .ok(chatMessageService.findChatMessages(senderId, recipientId));
     }
 
-    @GetMapping("/messages/{id}")
+    @GetMapping("/message/{id}")
     public ResponseEntity<?> findMessage ( @PathVariable String id) {
         return ResponseEntity
                 .ok(chatMessageService.findById(id));
+    }
+
+    @GetMapping("/messages/{id}")
+    public ResponseEntity<?> findChatRooms ( @PathVariable String id) {
+        return ResponseEntity
+                .ok(chatRoomService.findByRecipient(id));
     }
 
 }

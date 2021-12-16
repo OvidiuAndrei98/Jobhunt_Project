@@ -28,6 +28,12 @@ public class AppUserController {
        return ResponseEntity.ok(appUserFreelancerService.findById(id));
     }
 
+    @CrossOrigin("*")
+    @GetMapping("/get-company/{id}")
+    public ResponseEntity<Company> getUserCompany(@PathVariable long id) {
+        return ResponseEntity.ok(appUserFreelancerService.getUserCompany(id));
+    }
+
 
     @PutMapping("/update-password/{id}")
     public ResponseEntity<String> updateUserById(@PathVariable long id, @RequestBody UpdatePasswordDto updatePasswordDto) {

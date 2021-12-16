@@ -5,6 +5,7 @@ import com.lancefy.backend.repository.ChatRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,5 +44,9 @@ public class ChatRoomService {
 
                     return Optional.of(chatId);
                 });
+    }
+
+    public List<ChatRoom> findByRecipient(String id) {
+        return chatRoomRepository.findByRecipientId(id);
     }
 }

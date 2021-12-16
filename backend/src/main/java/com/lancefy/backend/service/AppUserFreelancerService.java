@@ -5,6 +5,7 @@ import com.lancefy.backend.awsconfig.buckets.BucketName;
 import com.lancefy.backend.awsconfig.filestore.FileStore;
 import com.lancefy.backend.model.appUser.*;
 import com.lancefy.backend.repository.AppUserFreelancerRepository;
+import com.lancefy.backend.repository.CompanyRepository;
 import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,11 +20,14 @@ public class AppUserFreelancerService {
     private final AppUserFreelancerRepository appUserFreelancerRepository;
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final FileStore fileStore;
+    private final CompanyRepository companyRepository;
+
 
     @Autowired
-    public AppUserFreelancerService(AppUserFreelancerRepository appUserFreelancerRepository, FileStore fileStore) {
+    public AppUserFreelancerService(AppUserFreelancerRepository appUserFreelancerRepository, FileStore fileStore, CompanyRepository companyRepository) {
         this.appUserFreelancerRepository = appUserFreelancerRepository;
         this.fileStore = fileStore;
+        this.companyRepository = companyRepository;
     }
 
     public void addUser(AppUserFreelancer appUserFreelancer) {
@@ -166,5 +170,9 @@ public class AppUserFreelancerService {
 
         return fileStore.download(path, user.getProfilePic());
 
+    }
+
+    public Company getUserCompany(Long id) {
+        return companyRepository.getById(id);
     }
 }
